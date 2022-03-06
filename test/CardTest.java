@@ -6,6 +6,7 @@ public class CardTest {
     Card nineHeart=new Card(CardSuit.HEART,CardNumber.NINE);
     Card fourDiamond=new Card(CardSuit.DIAMOND,CardNumber.FOUR);
     Card aceSpade=new Card(CardSuit.SPADE,CardNumber.ACE);
+
     @Test
     public void numTest() {
         assertThat(queenClubs.getNumber()).isEqualTo(CardNumber.QUEEN);
@@ -19,14 +20,15 @@ public class CardTest {
         //Black card case
         assertThat(queenClubs.isBlack(queenClubs.getSuit()));
         assertThat(aceSpade.isBlack(aceSpade.getSuit()));
+
         //Red card case
         assertThat(nineHeart.isRed(nineHeart.getSuit()));
         assertThat(fourDiamond.isRed(fourDiamond.getSuit()));
-        //handles case where they aren't equivalent
+
+        //Handles case where they aren't equivalent
         assertThat(queenClubs.isRed(queenClubs.getSuit())).isFalse();
         assertThat(nineHeart.isBlack(nineHeart.getSuit())).isFalse();
         assertThat(fourDiamond.isBlack(fourDiamond.getSuit())).isFalse();
-        assertThat(aceSpade.isBlack(aceSpade.getSuit())).isFalse();
-
+        assertThat(aceSpade.isRed(aceSpade.getSuit())).isFalse();
     }
 }

@@ -21,6 +21,9 @@ public class Card {
         this.number = number;
     }
 
+    /**
+     * Two simple get methods to return the cards suit and number
+     */
     public CardSuit getSuit() {
         return suit;
     }
@@ -29,11 +32,24 @@ public class Card {
         return number;
     }
 
+    /**
+     * Two methods that can be called on inside of tests to check if the created card is a red card or a black card.
+     */
     public boolean isRed(CardSuit suit) {
-        return false;
+        switch(suit) {
+            case DIAMOND: case HEART:
+                return true;
+            default:
+                return false;
+        }
     }
 
     public boolean isBlack(CardSuit suit) {
-        return false;
+        switch(suit) {
+            case CLUB: case SPADE:
+                return true;
+            default:
+                return false;
+        }
     }
 }
