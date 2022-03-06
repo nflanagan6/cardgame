@@ -20,4 +20,20 @@ public class Card {
         this.suit = suit;
         this.number = number;
     }
+
+    public CardSuit getSuit() {
+        return suit;
+    }
+
+    public CardNumber getNumber() {
+        return number;
+    }
+
+    public boolean isRed(CardSuit suit) {
+        return false;
+    }
+
+    public boolean isBlack(CardSuit suit) {
+        return false;
+    }
 }
