@@ -1,3 +1,5 @@
+package csc439teamplatypus.cardgame;
+
 /**
  * CSC 439 Software Testing & Maintenance
  * @author Nathan Flanagan, Ethan Hunt, Abbi Landers, Matthew Roy

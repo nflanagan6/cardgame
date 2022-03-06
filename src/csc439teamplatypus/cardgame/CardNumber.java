@@ -1,3 +1,5 @@
+package csc439teamplatypus.cardgame;
+
 public enum CardNumber {
     TWO,
     THREE,
