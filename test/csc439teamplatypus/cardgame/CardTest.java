@@ -1,11 +1,13 @@
+package csc439teamplatypus.cardgame;
+
 import static com.google.common.truth.Truth.assertThat;
 import org.testng.annotations.Test;
 
 public class CardTest {
     Card queenClubs = new Card(CardSuit.CLUB, CardNumber.QUEEN);
-    Card nineHeart=new Card(CardSuit.HEART,CardNumber.NINE);
-    Card fourDiamond=new Card(CardSuit.DIAMOND,CardNumber.FOUR);
-    Card aceSpade=new Card(CardSuit.SPADE,CardNumber.ACE);
+    Card nineHeart=new Card(CardSuit.HEART, CardNumber.NINE);
+    Card fourDiamond=new Card(CardSuit.DIAMOND, CardNumber.FOUR);
+    Card aceSpade=new Card(CardSuit.SPADE, CardNumber.ACE);
 
     @Test
     public void numTest() {
