@@ -1,7 +1,8 @@
 package csc439teamplatypus.cardgame;
 
+import org.junit.jupiter.api.Test;
 import static com.google.common.truth.Truth.assertThat;
-import org.testng.annotations.Test;
+
 
 public class CardTest {
     Card queenClubs = new Card(CardSuit.CLUB, CardNumber.QUEEN);
@@ -33,4 +34,6 @@ public class CardTest {
         assertThat(fourDiamond.isBlack(fourDiamond.getSuit())).isFalse();
         assertThat(aceSpade.isRed(aceSpade.getSuit())).isFalse();
     }
+
+
 }
