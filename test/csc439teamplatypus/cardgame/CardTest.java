@@ -5,10 +5,10 @@ import static com.google.common.truth.Truth.assertThat;
 
 
 public class CardTest {
-    Card queenClubs = new Card(CardSuit.CLUB, CardNumber.QUEEN);
-    Card nineHeart=new Card(CardSuit.HEART, CardNumber.NINE);
-    Card fourDiamond=new Card(CardSuit.DIAMOND, CardNumber.FOUR);
-    Card aceSpade=new Card(CardSuit.SPADE, CardNumber.ACE);
+    Card queenClubs = new Card(CardSuit.CLUB, CardNumber.QUEEN, CardFace.UP);
+    Card nineHeart = new Card(CardSuit.HEART, CardNumber.NINE, CardFace.DOWN);
+    Card fourDiamond = new Card(CardSuit.DIAMOND, CardNumber.FOUR, CardFace.UP);
+    Card aceSpade = new Card(CardSuit.SPADE, CardNumber.ACE, CardFace.DOWN);
 
     @Test
     public void numTest() {
@@ -35,5 +35,11 @@ public class CardTest {
         assertThat(aceSpade.isRed(aceSpade.getSuit())).isFalse();
     }
 
-
+    @Test
+    void faceTest() {
+        assertThat(queenClubs.getCardFace()).isEqualTo(CardFace.UP);
+        assertThat(nineHeart.getCardFace()).isEqualTo(CardFace.DOWN);
+        assertThat(fourDiamond.getCardFace()).isEqualTo(CardFace.UP);
+        assertThat(aceSpade.getCardFace()).isEqualTo(CardFace.DOWN);
+    }
 }
