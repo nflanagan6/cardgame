@@ -1,4 +1,4 @@
 package csc439teamplatypus.cardgame.golfgame;
 
-public class View {
+public abstract class View {
 }

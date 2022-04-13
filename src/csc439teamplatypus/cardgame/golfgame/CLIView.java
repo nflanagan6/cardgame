@@ -1,4 +1,4 @@
 package csc439teamplatypus.cardgame.golfgame;
 
-public class CLIView {
+public class CLIView extends View {
 }
