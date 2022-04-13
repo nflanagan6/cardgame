@@ -35,6 +35,34 @@ public class CLIView extends View {
         return -1;
     }
 
+    public void chooseCardToFlip() {
+
+        boolean inputCompleted = false;
+
+        while (!inputCompleted) {
+
+            System.out.println("Which card would you like to flip over? You can only flip over a face-down card.");
+            System.out.print("Enter one of: ");
+            for (int i = 0; i < 6; i++)
+                if (getCurrentPlayerHand()[i].getCardFace == CardFace.DOWN)
+                    System.out.print(i + " ");
+            System.out.print(": ");
+            int cardToFlip = input.nextInt();
+
+            if (getCurrentPlayerHand()[cardToFlip].getCardFace == CardFace.DOWN) {
+
+                flipCard(getCurrentPlayerNumber(), cardToFlip);
+                inputCompleted = true;
+            }
+
+            else {
+
+                System.out.println("Card number " + cardToFlip + " cannot be flipped over.");
+             }
+
+        }
+    }
+
     public void chooseDrawSource() {
 
         boolean inputCompleted = false;
@@ -84,11 +112,55 @@ public class CLIView extends View {
         }
     }
 
-    @Override
-    protected void setNumberOfPlayers(int numberOfPlayers) {
 
+
+    public void nextTurn() {
+
+        System.out.println("It's player " + getCurrentPlayerNumber() + 1 + "'s turn!");
+
+        //Print hand for current player
+        //Print card on top of discard pile
+
+        if (cardsRemaining()) {
+
+            boolean inputCompleted = false;
+
+            while (!inputCompleted) {
+
+                if (hasFaceDownCard(getCurrentPlayerNumber())) {
+
+                    System.out.println("Would you like to flip one of your cards over or draw a new card?");
+                    System.out.print("Enter \"Draw\" or \"Flip\": ");
+                    String decision_DrawOrFlip = input.next();
+
+                    switch (decision_DrawOrFlip) {
+
+                        case "Draw" -> {
+
+                            chooseDrawSource();
+                            inputCompleted = true;
+                        }
+
+                        case "Flip" -> {
+
+                            chooseCardToFlip();
+                            inputCompleted = true;
+                        }
+
+                        default -> {
+                            System.out.println("Could not parse input " + decision_DrawOrFlip);
+                        }
+                    }
+                }
+
+                else {
+
+                    chooseDrawSource();
+                    inputCompleted = true;
+                }
+            }
+        }
     }
-
 
     protected void printTopOfDiscardPile() {
 

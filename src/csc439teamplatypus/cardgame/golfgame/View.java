@@ -27,7 +27,19 @@ public abstract class View {
 
         return controller.drawFromPile();
     }
-    protected abstract void setNumberOfPlayers(int numberOfPlayers);
+
+    protected boolean hasFaceDownCard(int playerNumber) {
+
+        for (Card card : controller.getPlayerHand(playerNumber))
+            if (card.getCardFace == CardFace.DOWN)
+                return true;
+
+        return false;
+    }
+    protected void setNumberOfPlayers(int numberOfPlayers) {
+
+        controller.setNumberOfPlayers(numberOfPlayers);
+    }
     protected Card viewTopOfDiscardPile() {
 
         return controller.viewTopOfDiscardPile();
@@ -39,6 +51,15 @@ public abstract class View {
     protected Card[] getCurrentPlayerHand() {
 
         return controller.getPlayerHand(getCurrentPlayerNumber());
+    }
+    protected boolean cardsRemaining() {
+
+        return controller.cardsRemaining();
+    }
+
+    protected void flipCard (int playerNumber, int cardToFlip) {
+
+        controller.flipCard(playerNumber, cardToFlip);
     }
 
 }

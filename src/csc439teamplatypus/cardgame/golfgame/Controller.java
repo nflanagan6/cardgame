@@ -21,6 +21,17 @@ public class Controller {
         this.view = view;
     }
 
+    /** Returns whether there are Cards left to draw from in the deck
+     *
+     * @author Nathan Flanagan
+     * @return Whether the size of the deck is > 0
+     */
+
+    protected boolean cardsRemaining() {
+
+        return deck.size() > 0;
+    }
+
     /** Adds the cards in numberOfDecks standard decks to deck
      *
      * @author Nathan Flanagan
@@ -130,6 +141,19 @@ public class Controller {
         return deck.remove(rand.nextInt(deck.size()));
     }
 
+
+    protected void flipCard(int playerNumber, int cardToFlip) {
+
+        if (playerHands[playerNumber][cardToFlip].getCardFace() != CardFace.DOWN)
+            throw new IllegalArgumentException("You can only flip over a card that is face-down");
+
+        else {
+
+            playerHands[playerNumber][cardToFlip].setCardFace(CardFace.UP);
+            numberOfPlayedTurns++;
+        }
+    }
+
     /** Returns the number of turns that have been completed so far in the game
      *
      * @author Nathan Flanagan
@@ -189,7 +213,6 @@ public class Controller {
             discard = new ArrayList<>();
             numberOfPlayedTurns = 0;
         }
-
     }
 
     /** Returns the last Card placed on the discard pile without moving it off the pile

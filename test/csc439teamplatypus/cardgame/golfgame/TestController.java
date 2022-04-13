@@ -73,8 +73,4 @@ public class TestController {
         Truth.assertThat(testingController.getPlayerHand(0)[indexOfCardToSwap]).isEqualTo(originalDiscard);
         Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo( 2);
     }
-
-
-
-
 }
