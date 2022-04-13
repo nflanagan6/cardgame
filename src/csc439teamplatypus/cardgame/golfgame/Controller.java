@@ -1,9 +1,6 @@
 package csc439teamplatypus.cardgame.golfgame;
 
-import csc439teamplatypus.cardgame.Card;
-import csc439teamplatypus.cardgame.CardNumber;
-import csc439teamplatypus.cardgame.CardSuit;
-
+import csc439teamplatypus.cardgame.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -43,61 +40,61 @@ public class Controller {
 
         for (int i = numberOfDecks; i > 0; i--) {
 
-            deck.add(new Card(CardSuit.CLUB, CardNumber.TWO));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.THREE));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.FOUR));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.FIVE));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.SIX));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.SEVEN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.EIGHT));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.NINE));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.TEN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.JACK));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.QUEEN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.KING));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.ACE));
+            deck.add(new Card(CardSuit.CLUB, CardNumber.TWO, CardFace.DOWN));
+            deck.add(new Card(CardSuit.CLUB, CardNumber.THREE, CardFace.DOWN));
+            deck.add(new Card(CardSuit.CLUB, CardNumber.FOUR, CardFace.DOWN));
+            deck.add(new Card(CardSuit.CLUB, CardNumber.FIVE, CardFace.DOWN));
+            deck.add(new Card(CardSuit.CLUB, CardNumber.SIX, CardFace.DOWN));
+            deck.add(new Card(CardSuit.CLUB, CardNumber.SEVEN, CardFace.DOWN));
+            deck.add(new Card(CardSuit.CLUB, CardNumber.EIGHT, CardFace.DOWN));
+            deck.add(new Card(CardSuit.CLUB, CardNumber.NINE, CardFace.DOWN));
+            deck.add(new Card(CardSuit.CLUB, CardNumber.TEN, CardFace.DOWN));
+            deck.add(new Card(CardSuit.CLUB, CardNumber.JACK, CardFace.DOWN));
+            deck.add(new Card(CardSuit.CLUB, CardNumber.QUEEN, CardFace.DOWN));
+            deck.add(new Card(CardSuit.CLUB, CardNumber.KING, CardFace.DOWN));
+            deck.add(new Card(CardSuit.CLUB, CardNumber.ACE, CardFace.DOWN));
 
-            deck.add(new Card(CardSuit.SPADE, CardNumber.TWO));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.THREE));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.FOUR));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.FIVE));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.SIX));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.SEVEN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.EIGHT));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.NINE));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.TEN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.JACK));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.QUEEN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.KING));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.ACE));
+            deck.add(new Card(CardSuit.SPADE, CardNumber.TWO, CardFace.DOWN));
+            deck.add(new Card(CardSuit.SPADE, CardNumber.THREE, CardFace.DOWN));
+            deck.add(new Card(CardSuit.SPADE, CardNumber.FOUR, CardFace.DOWN));
+            deck.add(new Card(CardSuit.SPADE, CardNumber.FIVE, CardFace.DOWN));
+            deck.add(new Card(CardSuit.SPADE, CardNumber.SIX, CardFace.DOWN));
+            deck.add(new Card(CardSuit.SPADE, CardNumber.SEVEN, CardFace.DOWN));
+            deck.add(new Card(CardSuit.SPADE, CardNumber.EIGHT, CardFace.DOWN));
+            deck.add(new Card(CardSuit.SPADE, CardNumber.NINE, CardFace.DOWN));
+            deck.add(new Card(CardSuit.SPADE, CardNumber.TEN, CardFace.DOWN));
+            deck.add(new Card(CardSuit.SPADE, CardNumber.JACK, CardFace.DOWN));
+            deck.add(new Card(CardSuit.SPADE, CardNumber.QUEEN, CardFace.DOWN));
+            deck.add(new Card(CardSuit.SPADE, CardNumber.KING, CardFace.DOWN));
+            deck.add(new Card(CardSuit.SPADE, CardNumber.ACE, CardFace.DOWN));
 
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.TWO));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.THREE));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.FOUR));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.FIVE));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.SIX));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.SEVEN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.EIGHT));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.NINE));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.TEN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.JACK));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.QUEEN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.KING));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.ACE));
+            deck.add(new Card(CardSuit.DIAMOND, CardNumber.TWO, CardFace.DOWN));
+            deck.add(new Card(CardSuit.DIAMOND, CardNumber.THREE, CardFace.DOWN));
+            deck.add(new Card(CardSuit.DIAMOND, CardNumber.FOUR, CardFace.DOWN));
+            deck.add(new Card(CardSuit.DIAMOND, CardNumber.FIVE, CardFace.DOWN));
+            deck.add(new Card(CardSuit.DIAMOND, CardNumber.SIX, CardFace.DOWN));
+            deck.add(new Card(CardSuit.DIAMOND, CardNumber.SEVEN, CardFace.DOWN));
+            deck.add(new Card(CardSuit.DIAMOND, CardNumber.EIGHT, CardFace.DOWN));
+            deck.add(new Card(CardSuit.DIAMOND, CardNumber.NINE, CardFace.DOWN));
+            deck.add(new Card(CardSuit.DIAMOND, CardNumber.TEN, CardFace.DOWN));
+            deck.add(new Card(CardSuit.DIAMOND, CardNumber.JACK, CardFace.DOWN));
+            deck.add(new Card(CardSuit.DIAMOND, CardNumber.QUEEN, CardFace.DOWN));
+            deck.add(new Card(CardSuit.DIAMOND, CardNumber.KING, CardFace.DOWN));
+            deck.add(new Card(CardSuit.DIAMOND, CardNumber.ACE, CardFace.DOWN));
 
-            deck.add(new Card(CardSuit.HEART, CardNumber.TWO));
-            deck.add(new Card(CardSuit.HEART, CardNumber.THREE));
-            deck.add(new Card(CardSuit.HEART, CardNumber.FOUR));
-            deck.add(new Card(CardSuit.HEART, CardNumber.FIVE));
-            deck.add(new Card(CardSuit.HEART, CardNumber.SIX));
-            deck.add(new Card(CardSuit.HEART, CardNumber.SEVEN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.EIGHT));
-            deck.add(new Card(CardSuit.HEART, CardNumber.NINE));
-            deck.add(new Card(CardSuit.HEART, CardNumber.TEN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.JACK));
-            deck.add(new Card(CardSuit.HEART, CardNumber.QUEEN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.KING));
-            deck.add(new Card(CardSuit.HEART, CardNumber.ACE));
+            deck.add(new Card(CardSuit.HEART, CardNumber.TWO, CardFace.DOWN));
+            deck.add(new Card(CardSuit.HEART, CardNumber.THREE, CardFace.DOWN));
+            deck.add(new Card(CardSuit.HEART, CardNumber.FOUR, CardFace.DOWN));
+            deck.add(new Card(CardSuit.HEART, CardNumber.FIVE, CardFace.DOWN));
+            deck.add(new Card(CardSuit.HEART, CardNumber.SIX, CardFace.DOWN));
+            deck.add(new Card(CardSuit.HEART, CardNumber.SEVEN, CardFace.DOWN));
+            deck.add(new Card(CardSuit.HEART, CardNumber.EIGHT, CardFace.DOWN));
+            deck.add(new Card(CardSuit.HEART, CardNumber.NINE, CardFace.DOWN));
+            deck.add(new Card(CardSuit.HEART, CardNumber.TEN, CardFace.DOWN));
+            deck.add(new Card(CardSuit.HEART, CardNumber.JACK, CardFace.DOWN));
+            deck.add(new Card(CardSuit.HEART, CardNumber.QUEEN, CardFace.DOWN));
+            deck.add(new Card(CardSuit.HEART, CardNumber.KING, CardFace.DOWN));
+            deck.add(new Card(CardSuit.HEART, CardNumber.ACE, CardFace.DOWN));
         }
 
 

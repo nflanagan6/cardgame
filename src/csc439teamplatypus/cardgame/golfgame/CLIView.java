@@ -1,8 +1,9 @@
 package csc439teamplatypus.cardgame.golfgame;
 
 import csc439teamplatypus.cardgame.Card;
-
+import csc439teamplatypus.cardgame.*;
 import java.util.Scanner;
+
 
 public class CLIView extends View {
 
@@ -44,12 +45,12 @@ public class CLIView extends View {
             System.out.println("Which card would you like to flip over? You can only flip over a face-down card.");
             System.out.print("Enter one of: ");
             for (int i = 0; i < 6; i++)
-                if (getCurrentPlayerHand()[i].getCardFace == CardFace.DOWN)
+                if (getCurrentPlayerHand()[i].getCardFace() == CardFace.DOWN)
                     System.out.print(i + " ");
             System.out.print(": ");
             int cardToFlip = input.nextInt();
 
-            if (getCurrentPlayerHand()[cardToFlip].getCardFace == CardFace.DOWN) {
+            if (getCurrentPlayerHand()[cardToFlip].getCardFace() == CardFace.DOWN) {
 
                 flipCard(getCurrentPlayerNumber(), cardToFlip);
                 inputCompleted = true;

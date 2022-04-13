@@ -1,6 +1,7 @@
 package csc439teamplatypus.cardgame.golfgame;
 
 import csc439teamplatypus.cardgame.Card;
+import csc439teamplatypus.cardgame.*;
 
 public abstract class View {
 
@@ -31,7 +32,7 @@ public abstract class View {
     protected boolean hasFaceDownCard(int playerNumber) {
 
         for (Card card : controller.getPlayerHand(playerNumber))
-            if (card.getCardFace == CardFace.DOWN)
+            if (card.getCardFace() == CardFace.DOWN)
                 return true;
 
         return false;
