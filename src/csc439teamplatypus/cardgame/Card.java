@@ -12,15 +12,17 @@ public class Card {
      */
     private CardSuit suit;
     private CardNumber number;
+    private CardFace face;
 
     /**
      * This is the default call for the Card object that requires these two parameters to be input for future testing
      * @param suit Tells what type of suit the Card object is
      * @param number Tells what number the Card object is
      */
-    public Card(CardSuit suit, CardNumber number) {
+    public Card(CardSuit suit, CardNumber number, CardFace face) {
         this.suit = suit;
         this.number = number;
+        this.face = face;
     }
 
     /**
@@ -32,6 +34,13 @@ public class Card {
 
     public CardNumber getNumber() {
         return number;
+    }
+
+    public CardFace getCardFace() { return face; }
+
+
+    public void setCardFace(CardFace face) {
+        this.face = face;
     }
 
     /**
