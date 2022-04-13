@@ -138,6 +138,13 @@ public class Controller {
         return deck.remove(rand.nextInt(deck.size()));
     }
 
+    /** Flips the Card at playerHands[playerNumber][cardToFlip] if it is face-down. Throws an
+     * IllegalArgumentException if already face-up
+     *
+     * @author Nathan Flanagan
+     * @param playerNumber The player whose Card should be flipped
+     * @param cardToFlip The index of the Card that should be turned face-up
+     */
 
     protected void flipCard(int playerNumber, int cardToFlip) {
 
@@ -182,21 +189,24 @@ public class Controller {
 
     protected Card[] getPlayerHand(int playerNumber) {
 
+        if (playerNumber >= playerHands.length)
+            throw new IndexOutOfBoundsException();
+
         return playerHands[playerNumber];
     }
 
 
-    /** Accepts the number of players (must be between 2 and 17, inclusively) and instantiates deck, discard,
+    /** Accepts the number of players (must be between 2 and 7, inclusively) and instantiates deck, discard,
      * playerHands, numberOfPlayers, and the numberOfPlayedTurns
      *
      * @author Nathan Flanagan
-     * @param numberOfPlayers The number of people playing Golf. Must be inclusively between 2 and 17
+     * @param numberOfPlayers The number of people playing Golf. Must be inclusively between 2 and 7
      */
 
     protected void setNumberOfPlayers(int numberOfPlayers) {
 
-        if (numberOfPlayers < 2 || numberOfPlayers > 17)
-            throw new IllegalArgumentException("The number of players must be between 2 and 17 (inclusively");
+        if (numberOfPlayers < 2 || numberOfPlayers > 7)
+            throw new IllegalArgumentException("The number of players must be between 2 and 7 (inclusively");
 
         else {
 

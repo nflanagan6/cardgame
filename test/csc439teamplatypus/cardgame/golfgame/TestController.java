@@ -1,8 +1,10 @@
 package csc439teamplatypus.cardgame.golfgame;
 import com.google.common.truth.Truth;
 import csc439teamplatypus.cardgame.Card;
+import csc439teamplatypus.cardgame.CardFace;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -73,4 +75,20 @@ public class TestController {
         Truth.assertThat(testingController.getPlayerHand(0)[indexOfCardToSwap]).isEqualTo(originalDiscard);
         Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo( 2);
     }
+
+    @Test
+    public void flipCard_flipsCards_and_incrementsNumberOfPlayedTurns() {
+
+        testingController.setNumberOfPlayers(2);
+
+        for (int i = 0; i < 6; i ++) {
+            testingController.getPlayerHand(0)[i] = testingController.drawFromPile();
+        }
+
+        testingController.flipCard(0, 0);
+
+        Truth.assertThat(testingController.getPlayerHand(0)[0].getCardFace() == CardFace.UP);
+        Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo(1);
+    }
+
 }
