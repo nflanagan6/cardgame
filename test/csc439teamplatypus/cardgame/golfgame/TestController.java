@@ -52,11 +52,15 @@ public class TestController {
 
         testingController.setNumberOfPlayers(2);
 
+        Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo(0);
+
         for (int i = 0; i < 6; i ++) {
             testingController.getPlayerHand(0)[i] = testingController.drawFromPile();
         }
 
         testingController.discard(testingController.drawFromPile());
+
+        Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo(1);
 
         Card originalDiscard = testingController.viewTopOfDiscardPile();
 
@@ -67,6 +71,7 @@ public class TestController {
 
         Truth.assertThat(cardToSwap).isEqualTo(testingController.viewTopOfDiscardPile());
         Truth.assertThat(testingController.getPlayerHand(0)[indexOfCardToSwap]).isEqualTo(originalDiscard);
+        Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo( 2);
     }
 
 

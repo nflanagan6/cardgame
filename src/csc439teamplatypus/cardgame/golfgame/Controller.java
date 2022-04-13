@@ -92,7 +92,7 @@ public class Controller {
 
     }
 
-    /** Adds a Card to the top of the discard pile
+    /** Adds a Card to the top of the discard pile and increments numberOfPlayedTurns by 1
      *
      * @author Nathan Flanagan
      * @param cardToDiscard The Card to be placed on top of the discard pile
@@ -101,13 +101,21 @@ public class Controller {
     protected void discard(Card cardToDiscard) {
 
         discard.add(cardToDiscard);
+        numberOfPlayedTurns++;
     }
+
+    /** Replaces the Card at playerHands[playerNumber][cardToReplace] with the Card off the top of the
+     * discard pile. Increments numberOfPlayedTurns by 1.
+     * @param playerNumber The current player
+     * @param cardToReplace The index of the card the current player wishes to replace
+     */
 
     protected void drawDiscard(int playerNumber, int cardToReplace) {
 
         Card temp = discard.remove(discard.size() - 1);
         discard.add(playerHands[playerNumber][cardToReplace]);
         playerHands[playerNumber][cardToReplace] = temp;
+        numberOfPlayedTurns++;
     }
 
     /** Returns a Card off the deck
@@ -122,15 +130,34 @@ public class Controller {
         return deck.remove(rand.nextInt(deck.size()));
     }
 
+    /** Returns the number of turns that have been completed so far in the game
+     *
+     * @author Nathan Flanagan
+     * @return The number of completed turns
+     */
+
     protected int getNumberOfPlayedTurns() {
 
-        return getNumberOfPlayers();
+        return numberOfPlayedTurns;
     }
+
+    /** Returns the number of players in the game
+     *
+     * @author Nathan Flanagan
+     * @return The number of players in the game
+     */
 
     protected int getNumberOfPlayers() {
 
         return numberOfPlayers;
     }
+
+    /** Returns a player's current hand
+     *
+     * @author Nathan Flanagan
+     * @param playerNumber The player whose hand should be returned
+     * @return The player's hand
+     */
 
     protected Card[] getPlayerHand(int playerNumber) {
 
@@ -178,7 +205,8 @@ public class Controller {
 
     /** Only intended for testing
      *
-     * @return the Controllers deck
+     * @author Nathan Flanagan
+     * @return the Controller's deck
      */
 
     protected ArrayList<Card> getDeck() {
