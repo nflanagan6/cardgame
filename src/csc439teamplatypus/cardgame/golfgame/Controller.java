@@ -5,6 +5,7 @@ import csc439teamplatypus.cardgame.CardNumber;
 import csc439teamplatypus.cardgame.CardSuit;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Controller {
 
@@ -66,6 +67,7 @@ public class Controller {
             deck.add(new Card(CardSuit.DIAMOND, CardNumber.SIX));
             deck.add(new Card(CardSuit.DIAMOND, CardNumber.SEVEN));
             deck.add(new Card(CardSuit.DIAMOND, CardNumber.EIGHT));
+            deck.add(new Card(CardSuit.DIAMOND, CardNumber.NINE));
             deck.add(new Card(CardSuit.DIAMOND, CardNumber.TEN));
             deck.add(new Card(CardSuit.DIAMOND, CardNumber.JACK));
             deck.add(new Card(CardSuit.DIAMOND, CardNumber.QUEEN));
@@ -79,6 +81,7 @@ public class Controller {
             deck.add(new Card(CardSuit.HEART, CardNumber.SIX));
             deck.add(new Card(CardSuit.HEART, CardNumber.SEVEN));
             deck.add(new Card(CardSuit.HEART, CardNumber.EIGHT));
+            deck.add(new Card(CardSuit.HEART, CardNumber.NINE));
             deck.add(new Card(CardSuit.HEART, CardNumber.TEN));
             deck.add(new Card(CardSuit.HEART, CardNumber.JACK));
             deck.add(new Card(CardSuit.HEART, CardNumber.QUEEN));
@@ -100,29 +103,23 @@ public class Controller {
         discard.add(cardToDiscard);
     }
 
-    /** Removes the last Card placed on the discard pile and replaces it with cardToReplace
-     *
-     * @author Nathan Flanagan
-     * @param cardToReplace The Card the player wishes to replace with the top Card on the discard pile
-     * @return The top Card on the discard pile
-     */
+    protected void drawDiscard(int playerNumber, int cardToReplace) {
 
-    protected Card drawDiscard(Card cardToReplace) {
-
-        Card tempCardToReturn = discard.remove(discard.size() - 1);
-        discard.add(cardToReplace);
-        return tempCardToReturn;
+        Card temp = discard.remove(discard.size() - 1);
+        discard.add(playerHands[playerNumber][cardToReplace]);
+        playerHands[playerNumber][cardToReplace] = temp;
     }
 
-    /** Returns the top Card off the deck
+    /** Returns a Card off the deck
      *
      * @author Nathan Flanagan
-     * @return The top Card on the deck
+     * @return A random card from the deck
      */
 
     protected Card drawFromPile() {
 
-        return deck.remove(deck.size() - 1);
+        Random rand = new Random();
+        return deck.remove(rand.nextInt(deck.size()));
     }
 
     protected int getNumberOfPlayedTurns() {
@@ -139,7 +136,6 @@ public class Controller {
 
         return playerHands[playerNumber];
     }
-
 
 
     /** Accepts the number of players (must be between 2 and 17, inclusively) and instantiates deck, discard,
@@ -179,7 +175,6 @@ public class Controller {
 
         return discard.get(discard.size() - 1);
     }
-
 
     /** Only intended for testing
      *

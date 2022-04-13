@@ -5,16 +5,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class TestController {
 
     Controller testingController;
+    Random testingRandom;
 
     @BeforeEach
     public void setUp() {
 
         testingController = new Controller(new CLIView());
-
+        testingRandom = new Random(System.currentTimeMillis());
     }
 
     @Test
@@ -43,6 +45,28 @@ public class TestController {
         testingController.discard(topCard);
 
         Truth.assertThat(topCard).isEqualTo(testingController.viewTopOfDiscardPile());
+    }
+
+    @Test
+    public void drawDiscard_swapsCardToDiscard_and_topOfDiscardPile() {
+
+        testingController.setNumberOfPlayers(2);
+
+        for (int i = 0; i < 6; i ++) {
+            testingController.getPlayerHand(0)[i] = testingController.drawFromPile();
+        }
+
+        testingController.discard(testingController.drawFromPile());
+
+        Card originalDiscard = testingController.viewTopOfDiscardPile();
+
+        int indexOfCardToSwap = testingRandom.nextInt(6);
+        Card cardToSwap = testingController.getPlayerHand(0)[indexOfCardToSwap];
+
+        testingController.drawDiscard(0, indexOfCardToSwap);
+
+        Truth.assertThat(cardToSwap).isEqualTo(testingController.viewTopOfDiscardPile());
+        Truth.assertThat(testingController.getPlayerHand(0)[indexOfCardToSwap]).isEqualTo(originalDiscard);
     }
 
 

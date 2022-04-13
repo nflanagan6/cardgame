@@ -11,21 +11,34 @@ public abstract class View {
         this.controller = new Controller(this);
     }
 
-    protected void discard(int playerNumber, int cardIndex) {
+    protected void discardHeldCard(int playerNumber, int cardIndex) {
 
-        getController().discard(getController().getPlayerHand(playerNumber)[cardIndex]);
+        controller.discard(controller.getPlayerHand(playerNumber)[cardIndex]);
     }
-    protected abstract Card drawDiscard(Card cardToReplace);
-    protected abstract Card drawFromPile();
+    protected void discardUnheldCard(Card cardToDiscard) {
+
+        controller.discard(cardToDiscard);
+    }
+    protected void drawDiscard(int playerNumber, int cardToReplace) {
+
+        controller.drawDiscard(playerNumber, cardToReplace);
+    }
+    protected Card drawFromPile() {
+
+        return controller.drawFromPile();
+    }
     protected abstract void setNumberOfPlayers(int numberOfPlayers);
-    protected abstract void viewTopOfDiscardPile();
-    protected int getPlayerNumber() {
+    protected Card viewTopOfDiscardPile() {
 
-        return getController().getNumberOfPlayedTurns() % getController().getNumberOfPlayers();
+        return controller.viewTopOfDiscardPile();
     }
-    protected Controller getController() {
+    protected int getCurrentPlayerNumber() {
 
-        return this.controller;
+        return controller.getNumberOfPlayedTurns() % controller.getNumberOfPlayers();
+    }
+    protected Card[] getCurrentPlayerHand() {
+
+        return controller.getPlayerHand(getCurrentPlayerNumber());
     }
 
 }

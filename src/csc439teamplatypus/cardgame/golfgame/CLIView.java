@@ -13,7 +13,7 @@ public class CLIView extends View {
         this.input = new Scanner(System.in);
     }
 
-    public void promptForDiscard() {
+    public int promptForDiscard() {
 
         boolean inputCompleted = false;
 
@@ -28,19 +28,60 @@ public class CLIView extends View {
             else {
 
                  inputCompleted = true;
-                 discard(getPlayerNumber(), cardToDiscard);
+                 return cardToDiscard;
             }
         }
+
+        return -1;
     }
 
-    @Override
-    protected Card drawDiscard(Card cardToReplace) {
-        return null;
-    }
+    public void chooseDrawSource() {
 
-    @Override
-    protected Card drawFromPile() {
-        return null;
+        boolean inputCompleted = false;
+
+        while (!inputCompleted) {
+
+            System.out.println("Would you like to draw from the deck or take the card off the top of the discard pile?");
+            System.out.print("Enter \"Deck\" or \"Discard\" (without the quotes: )");
+            String decision_deckOrDiscard = input.next();
+
+            switch (decision_deckOrDiscard) {
+
+                case "Deck" -> {
+
+                    Card drawnCard = drawFromPile();
+                    System.out.println("You drew the " + drawnCard.getNumber() + " of " + drawnCard.getSuit());
+                    System.out.print("Would you like to keep it? Enter \"Yes\" or \"No\": ");
+                    String decision_keepOrDiscard = input.next();
+
+                    switch (decision_keepOrDiscard) {
+
+                        case "Yes" -> {
+
+                            int cardToDiscard = promptForDiscard();
+                            discardHeldCard(getCurrentPlayerNumber(), cardToDiscard);
+                            getCurrentPlayerHand()[cardToDiscard] = drawnCard;
+                            inputCompleted = true;
+                        }
+
+                        case "No" -> {
+
+                            discardUnheldCard(drawnCard);
+                            System.out.println("Card discarded");
+                            inputCompleted = true;
+                        }
+                    }
+                }
+
+                case "Discard" -> {
+
+                    drawDiscard(getCurrentPlayerNumber(), promptForDiscard());
+                    inputCompleted = true;
+                }
+
+                default -> { System.out.println("Could not parse input: " + decision_deckOrDiscard); }
+            }
+        }
     }
 
     @Override
@@ -48,10 +89,10 @@ public class CLIView extends View {
 
     }
 
-    @Override
-    protected void viewTopOfDiscardPile() {
 
-        Card topCard = getController().viewTopOfDiscardPile();
+    protected void printTopOfDiscardPile() {
+
+        Card topCard = viewTopOfDiscardPile();
         System.out.println("The top card on the discard pile is the " + topCard.getNumber()
                 + " of " + topCard.getSuit());
     }
