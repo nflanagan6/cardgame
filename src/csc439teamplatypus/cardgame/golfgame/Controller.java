@@ -100,7 +100,8 @@ public class Controller {
 
     }
 
-    /** Adds a Card to the top of the discard pile and increments numberOfPlayedTurns by 1
+    /** Adds a Card to the top of the discard pile and increments numberOfPlayedTurns by 1. Ensures the card
+     * added to the
      *
      * @author Nathan Flanagan
      * @param cardToDiscard The Card to be placed on top of the discard pile
@@ -108,6 +109,7 @@ public class Controller {
 
     protected void discard(Card cardToDiscard) {
 
+        cardToDiscard.setCardFace(CardFace.UP);
         discard.add(cardToDiscard);
         numberOfPlayedTurns++;
     }
@@ -120,13 +122,14 @@ public class Controller {
 
     protected void drawDiscard(int playerNumber, int cardToReplace) {
 
+        playerHands[playerNumber][cardToReplace].setCardFace(CardFace.UP);
         Card temp = discard.remove(discard.size() - 1);
         discard.add(playerHands[playerNumber][cardToReplace]);
         playerHands[playerNumber][cardToReplace] = temp;
         numberOfPlayedTurns++;
     }
 
-    /** Returns a Card off the deck
+    /** Returns a Card face-up off the deck
      *
      * @author Nathan Flanagan
      * @return A random card from the deck
@@ -135,7 +138,9 @@ public class Controller {
     protected Card drawFromPile() {
 
         Random rand = new Random();
-        return deck.remove(rand.nextInt(deck.size()));
+        Card cardToReturn = deck.remove(rand.nextInt(deck.size()));
+        cardToReturn.setCardFace(CardFace.UP);
+        return cardToReturn;
     }
 
     /** Flips the Card at playerHands[playerNumber][cardToFlip] if it is face-down. Throws an
@@ -194,7 +199,6 @@ public class Controller {
 
         return playerHands[playerNumber];
     }
-
 
     /** Accepts the number of players (must be between 2 and 7, inclusively) and instantiates deck, discard,
      * playerHands, numberOfPlayers, and the numberOfPlayedTurns

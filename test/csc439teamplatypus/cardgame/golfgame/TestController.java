@@ -91,4 +91,15 @@ public class TestController {
         Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo(1);
     }
 
+    @Test
+    public void drawFromPile_flipsCardsFaceUP() {
+
+        testingController.setNumberOfPlayers(2);
+
+        Card card = testingController.drawFromPile();
+
+        Truth.assertThat(card.getCardFace()).isEqualTo(CardFace.UP);
+    }
+
+
 }
