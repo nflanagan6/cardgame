@@ -190,6 +190,7 @@ public class Controller {
         for (int i = 0; i < 6; i ++) {
             for (int j = 0; j < numberOfPlayers; j++) {
                 playerHands[j][i] = drawFromPile();
+                playerHands[j][i].setCardFace(CardFace.DOWN);
             }
         }
 
