@@ -1,13 +1,19 @@
 package csc439teamplatypus.cardgame.golfgame;
 
 import csc439teamplatypus.cardgame.Card;
-import csc439teamplatypus.cardgame.*;
+import csc439teamplatypus.cardgame.CardFace;
+
+import java.util.Arrays;
 import java.util.Scanner;
 
 
+/**CLIView displays player input in parallel with controller
+ *
+ */
 public class CLIView extends View {
 
     Scanner input;
+    int turn = 0;
 
     public CLIView() {
         this.input = new Scanner(System.in);
@@ -35,6 +41,9 @@ public class CLIView extends View {
         return -1;
     }
 
+    /**Handles player decision on flipping or not flipping a face down card
+     *
+     */
     public void chooseCardToFlip() {
 
         boolean inputCompleted = false;
@@ -63,6 +72,9 @@ public class CLIView extends View {
         }
     }
 
+    /**Handles deck interaction with player input, keep or discard card you drew
+     *
+     */
     public void chooseDrawSource() {
 
         boolean inputCompleted = false;
@@ -113,10 +125,14 @@ public class CLIView extends View {
     }
 
 
-
+    /** Handles next turn of golf
+     *
+     */
     public void nextTurn() {
 
-        System.out.println("It's player " + getCurrentPlayerNumber() + 1 + "'s turn!");
+        //System.out.println("It's player " + getCurrentPlayerNumber() + 1 + "'s turn!");
+
+        turn++;
 
         //Print hand for current player
         //Print card on top of discard pile
@@ -126,6 +142,11 @@ public class CLIView extends View {
             boolean inputCompleted = false;
 
             while (!inputCompleted) {
+                System.out.println("It's currently player's "+getCurrentPlayerNumber() + " hand.");
+                System.out.println("The turn number is "+turn);
+                System.out.println("Your hand is "+ Arrays.toString(getCurrentPlayerHand()));
+                System.out.println("The last discarded card is ");
+                printTopOfDiscardPile();
 
                 if (hasFaceDownCard(getCurrentPlayerNumber())) {
 
@@ -162,12 +183,18 @@ public class CLIView extends View {
         }
     }
 
+    /**Prints top of discard pile
+     *
+     */
     protected void printTopOfDiscardPile() {
         Card topCard = viewTopOfDiscardPile();
         System.out.println("The top card on the discard pile is the " + topCard.getNumber()
                 + " of " + topCard.getSuit());
     }
 
+    /**Setter method for the input number of players sets players then goes to next turn
+     * @param numberOfPlayers
+     */
     protected void setNumOfPlayers(int numberOfPlayers) {
         System.out.println("\tYou have chosen " + numberOfPlayers + " players!");
         setNumberOfPlayers(numberOfPlayers);
@@ -175,6 +202,9 @@ public class CLIView extends View {
         nextTurn();
     }
 
+    /**Initializer of golf game with text displaying you're in the game and asking how many players
+     *
+     */
     public void startGame() {
         System.out.println("\t\tWelcome to Golf!");
         System.out.println("\tHow many people will be playing?");
