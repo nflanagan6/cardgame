@@ -101,5 +101,25 @@ public class TestController {
         Truth.assertThat(card.getCardFace()).isEqualTo(CardFace.UP);
     }
 
+    @Test
+    void setPlayerHands_3Players() {
+        testingController.setNumberOfPlayers(3);
 
+        testingController.setPlayerHands();
+        for (int i = 0; i < testingController.getNumberOfPlayers(); i++) {
+            Truth.assertThat(testingController.getPlayerHand(i).length).isEqualTo(6);
+        }
+        Truth.assertThat(testingController.getDeck().size()).isEqualTo(34);
+    }
+
+    @Test
+    void setPlayerHand_7Players() {
+        testingController.setNumberOfPlayers(7);
+
+        testingController.setPlayerHands();
+        for (int i = 0; i < testingController.getNumberOfPlayers(); i++) {
+            Truth.assertThat(testingController.getPlayerHand(i).length).isEqualTo(6);
+        }
+        Truth.assertThat(testingController.getDeck().size()).isEqualTo(62);
+    }
 }

@@ -12,6 +12,7 @@ public class Controller {
     private int numberOfPlayers;
     private final View view;
     private int numberOfPlayedTurns;
+    Random rand = new Random();
 
     protected Controller (View view) {
 
@@ -136,8 +137,6 @@ public class Controller {
      */
 
     protected Card drawFromPile() {
-
-        Random rand = new Random();
         Card cardToReturn = deck.remove(rand.nextInt(deck.size()));
         cardToReturn.setCardFace(CardFace.UP);
         return cardToReturn;
@@ -245,5 +244,30 @@ public class Controller {
 
     protected ArrayList<Card> getDeck() {
         return deck;
+    }
+
+    /** Sets each players hand by dealing them cards one at a time until they have a full hand.
+     * Then it takes two of those cards and makes them face up
+     * @author Ethan Hunt
+     */
+    protected void setPlayerHands() {
+
+        for (int i = 0; i < 6; i ++) {
+            for (int j = 0; j < numberOfPlayers; j++) {
+                playerHands[j][i] = drawFromPile();
+                playerHands[j][i].setCardFace(CardFace.DOWN);
+            }
+        }
+
+        for (int i = 0; i < numberOfPlayers; i++) {
+            int num1 = rand.nextInt(6);
+            int num2 = rand.nextInt(6);
+            while (num1 == num2) {
+                num2 = rand.nextInt(6);
+            }
+
+            playerHands[i][num1].setCardFace(CardFace.UP);
+            playerHands[i][num2].setCardFace(CardFace.UP);
+        }
     }
 }
