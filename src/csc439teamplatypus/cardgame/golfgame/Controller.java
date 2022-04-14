@@ -2,6 +2,7 @@ package csc439teamplatypus.cardgame.golfgame;
 
 import csc439teamplatypus.cardgame.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Controller {
@@ -258,5 +259,36 @@ public class Controller {
             playerHands[i][num1].setCardFace(CardFace.UP);
             playerHands[i][num2].setCardFace(CardFace.UP);
         }
+    }
+
+    /** Gets the turn number
+     *
+     * @return Turn
+     */
+    protected int getTurn() {
+        int numTurns=getNumberOfPlayedTurns();
+        int numPlayers=getNumberOfPlayers();
+        return numTurns%numPlayers;
+    }
+    /** Called to when the turn is ended.
+     *
+     *
+     */
+    protected void turnEnd(){
+        discard(viewTopOfDiscardPile());
+        drawDiscard(numberOfPlayers,numberOfPlayedTurns);
+        numberOfPlayedTurns++;
+        printAfterTurn();
+    }
+
+    /**Called to after turn
+     *
+     */
+    protected void printAfterTurn() {
+        System.out.println("It's currently turn: "+getTurn());
+        System.out.print("It's currently player "+ (Arrays.toString(getPlayerHand(getTurn()))) + "turn.");
+        System.out.println("Your hand: "+ Arrays.toString(getPlayerHand(getNumberOfPlayers())));
+        System.out.print("The top of the discard pile:" +viewTopOfDiscardPile());
+        System.out.println("Your options are: Deck, Yes, No, or Discard");
     }
 }
