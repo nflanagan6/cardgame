@@ -10,7 +10,6 @@ public class CLIView extends View {
     Scanner input;
 
     public CLIView() {
-
         this.input = new Scanner(System.in);
     }
 
@@ -164,9 +163,23 @@ public class CLIView extends View {
     }
 
     protected void printTopOfDiscardPile() {
-
         Card topCard = viewTopOfDiscardPile();
         System.out.println("The top card on the discard pile is the " + topCard.getNumber()
                 + " of " + topCard.getSuit());
+    }
+
+    protected void setNumOfPlayers(int numberOfPlayers) {
+        System.out.println("\tYou have chosen " + numberOfPlayers + " players!");
+        setNumberOfPlayers(numberOfPlayers);
+        setPlayerHand();
+        nextTurn();
+    }
+
+    public void startGame() {
+        System.out.println("\t\tWelcome to Golf!");
+        System.out.println("\tHow many people will be playing?");
+        System.out.print("Please enter a number between 2 and 7: ");
+        int numOfPlayers = Integer.parseInt(input.next());
+        setNumOfPlayers(numOfPlayers);
     }
 }
