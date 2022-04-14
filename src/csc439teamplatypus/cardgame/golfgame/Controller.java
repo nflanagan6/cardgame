@@ -15,7 +15,6 @@ public class Controller {
     Random rand = new Random();
 
     protected Controller (View view) {
-
         this.view = view;
     }
 
@@ -26,7 +25,6 @@ public class Controller {
      */
 
     protected boolean cardsRemaining() {
-
         return deck.size() > 0;
     }
 
@@ -38,7 +36,6 @@ public class Controller {
      */
 
     private void createCardDeck(ArrayList<Card> deck, int numberOfDecks) {
-
         for (int i = numberOfDecks; i > 0; i--) {
 
             deck.add(new Card(CardSuit.CLUB, CardNumber.TWO, CardFace.DOWN));
@@ -97,8 +94,6 @@ public class Controller {
             deck.add(new Card(CardSuit.HEART, CardNumber.KING, CardFace.DOWN));
             deck.add(new Card(CardSuit.HEART, CardNumber.ACE, CardFace.DOWN));
         }
-
-
     }
 
     /** Adds a Card to the top of the discard pile and increments numberOfPlayedTurns by 1. Ensures the card
@@ -109,7 +104,6 @@ public class Controller {
      */
 
     protected void discard(Card cardToDiscard) {
-
         cardToDiscard.setCardFace(CardFace.UP);
         discard.add(cardToDiscard);
         numberOfPlayedTurns++;
@@ -122,7 +116,6 @@ public class Controller {
      */
 
     protected void drawDiscard(int playerNumber, int cardToReplace) {
-
         playerHands[playerNumber][cardToReplace].setCardFace(CardFace.UP);
         Card temp = discard.remove(discard.size() - 1);
         discard.add(playerHands[playerNumber][cardToReplace]);
@@ -151,7 +144,6 @@ public class Controller {
      */
 
     protected void flipCard(int playerNumber, int cardToFlip) {
-
         if (playerHands[playerNumber][cardToFlip].getCardFace() != CardFace.DOWN)
             throw new IllegalArgumentException("You can only flip over a card that is face-down");
 
@@ -169,7 +161,6 @@ public class Controller {
      */
 
     protected int getNumberOfPlayedTurns() {
-
         return numberOfPlayedTurns;
     }
 
@@ -180,7 +171,6 @@ public class Controller {
      */
 
     protected int getNumberOfPlayers() {
-
         return numberOfPlayers;
     }
 
@@ -192,9 +182,9 @@ public class Controller {
      */
 
     protected Card[] getPlayerHand(int playerNumber) {
-
-        if (playerNumber >= playerHands.length)
+        if (playerNumber >= playerHands.length) {
             throw new IndexOutOfBoundsException();
+        }
 
         return playerHands[playerNumber];
     }
@@ -207,9 +197,9 @@ public class Controller {
      */
 
     protected void setNumberOfPlayers(int numberOfPlayers) {
-
-        if (numberOfPlayers < 2 || numberOfPlayers > 7)
-            throw new IllegalArgumentException("The number of players must be between 2 and 7 (inclusively");
+        if (numberOfPlayers < 2 || numberOfPlayers > 7) {
+            throw new IllegalArgumentException("The number of players must be between 2 and 7 (inclusively)");
+        }
 
         else {
 
@@ -251,7 +241,6 @@ public class Controller {
      * @author Ethan Hunt
      */
     protected void setPlayerHands() {
-
         for (int i = 0; i < 6; i ++) {
             for (int j = 0; j < numberOfPlayers; j++) {
                 playerHands[j][i] = drawFromPile();
