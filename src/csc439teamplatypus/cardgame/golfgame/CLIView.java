@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 
-/**CLIView displays player input in parallel with controller
- *
+/**
+ * CLIView displays player input in parallel with controller
  */
 public class CLIView extends View {
 
@@ -33,16 +33,16 @@ public class CLIView extends View {
 
             else {
 
-                 inputCompleted = true;
-                 return cardToDiscard;
+                inputCompleted = true;
+                return cardToDiscard;
             }
         }
 
         return -1;
     }
 
-    /**Handles player decision on flipping or not flipping a face down card
-     *
+    /**
+     * Handles player decision on flipping or not flipping a face down card
      */
     public void chooseCardToFlip() {
 
@@ -62,18 +62,16 @@ public class CLIView extends View {
 
                 flipCard(getCurrentPlayerNumber(), cardToFlip);
                 inputCompleted = true;
-            }
-
-            else {
+            } else {
 
                 System.out.println("Card number " + cardToFlip + " cannot be flipped over.");
-             }
+            }
 
         }
     }
 
-    /**Handles deck interaction with player input, keep or discard card you drew
-     *
+    /**
+     * Handles deck interaction with player input, keep or discard card you drew
      */
     public void chooseDrawSource() {
 
@@ -119,16 +117,19 @@ public class CLIView extends View {
                     inputCompleted = true;
                 }
 
-                default -> { System.out.println("Could not parse input: " + decision_deckOrDiscard); }
+                default -> {
+                    System.out.println("Could not parse input: " + decision_deckOrDiscard);
+                }
             }
         }
     }
 
 
-    /** Handles next turn of golf
-     *
+    /**
+     * Handles next turn of golf
      */
     public void nextTurn() {
+
 
         //System.out.println("It's player " + getCurrentPlayerNumber() + 1 + "'s turn!");
 
@@ -142,9 +143,9 @@ public class CLIView extends View {
             boolean inputCompleted = false;
 
             while (!inputCompleted) {
-                System.out.println("It's currently player's "+getCurrentPlayerNumber() + " hand.");
-                System.out.println("The turn number is "+turn);
-                System.out.println("Your hand is "+ Arrays.toString(getCurrentPlayerHand()));
+                System.out.println("It's currently player's " + getCurrentPlayerNumber() + " hand.");
+                System.out.println("The turn number is " + turn);
+                System.out.println("Your hand is " + Arrays.toString(getCurrentPlayerHand()));
                 System.out.println("The last discarded card is ");
                 printTopOfDiscardPile();
 
@@ -172,19 +173,18 @@ public class CLIView extends View {
                             System.out.println("Could not parse input " + decision_DrawOrFlip);
                         }
                     }
-                }
-
-                else {
+                } else {
 
                     chooseDrawSource();
                     inputCompleted = true;
                 }
             }
+            nextTurn();
         }
     }
 
-    /**Prints top of discard pile
-     *
+    /**
+     * Prints top of discard pile
      */
     protected void printTopOfDiscardPile() {
         Card topCard = viewTopOfDiscardPile();
@@ -192,7 +192,9 @@ public class CLIView extends View {
                 + " of " + topCard.getSuit());
     }
 
-    /**Setter method for the input number of players sets players then goes to next turn
+    /**
+     * Setter method for the input number of players sets players then goes to next turn
+     *
      * @param numberOfPlayers
      */
     protected void setNumOfPlayers(int numberOfPlayers) {
@@ -202,8 +204,8 @@ public class CLIView extends View {
         nextTurn();
     }
 
-    /**Initializer of golf game with text displaying you're in the game and asking how many players
-     *
+    /**
+     * Initializer of golf game with text displaying you're in the game and asking how many players
      */
     public void startGame() {
         System.out.println("\t\tWelcome to Golf!");
