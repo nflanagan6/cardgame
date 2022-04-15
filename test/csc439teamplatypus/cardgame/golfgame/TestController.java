@@ -92,7 +92,7 @@ public class TestController {
 
         testingController.flipCard(0, faceDownCard);
 
-        Truth.assertThat(testingController.getPlayerHand(0)[faceDownCard].getCardFace() == CardFace.UP);
+        Truth.assertThat(testingController.getPlayerHand(0)[faceDownCard].getCardFace()).isEqualTo(CardFace.UP);
         Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo(1);
     }
 
@@ -114,7 +114,9 @@ public class TestController {
         for (int i = 0; i < testingController.getNumberOfPlayers(); i++) {
             Truth.assertThat(testingController.getPlayerHand(i).length).isEqualTo(6);
         }
-        Truth.assertThat(testingController.getDeck().size()).isEqualTo(34);
+        Truth.assertThat(testingController.getDeck().size()).isEqualTo(33);
+        Truth.assertThat(testingController.viewTopOfDiscardPile()).isNotNull();
+        Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo(0);
     }
 
     @Test
@@ -125,6 +127,8 @@ public class TestController {
         for (int i = 0; i < testingController.getNumberOfPlayers(); i++) {
             Truth.assertThat(testingController.getPlayerHand(i).length).isEqualTo(6);
         }
-        Truth.assertThat(testingController.getDeck().size()).isEqualTo(62);
+        Truth.assertThat(testingController.getDeck().size()).isEqualTo(61);
+        Truth.assertThat(testingController.viewTopOfDiscardPile()).isNotNull();
+        Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo(0);
     }
 }
