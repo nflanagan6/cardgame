@@ -74,7 +74,7 @@ public class CLIView extends View {
      * Handles deck interaction with player input, keep or discard card you drew
      */
     public void drawFromDeck() {
-        Card drawnCard = drawFromPile();
+        Card drawnCard = drawCardFromDeck();
         boolean deckDrawInputCompleted = false;
 
         while (!deckDrawInputCompleted) {

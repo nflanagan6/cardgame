@@ -43,10 +43,11 @@ public class TestController {
     public void discardTopCardInDeck() {
 
         testingController.setNumberOfPlayers(3);
-        Card topCard = testingController.drawFromPile();
+        Card topCard = testingController.drawFromDeck();
         testingController.discard(topCard);
 
         Truth.assertThat(topCard).isEqualTo(testingController.viewTopOfDiscardPile());
+        Truth.assertThat(testingController.viewTopOfDiscardPile().getCardFace()).isEqualTo(CardFace.UP);
     }
 
     @Test
@@ -57,10 +58,10 @@ public class TestController {
         Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo(0);
 
         for (int i = 0; i < 6; i ++) {
-            testingController.getPlayerHand(0)[i] = testingController.drawFromPile();
+            testingController.getPlayerHand(0)[i] = testingController.drawFromDeck();
         }
 
-        testingController.discard(testingController.drawFromPile());
+        testingController.discard(testingController.drawFromDeck());
 
         Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo(1);
 
@@ -85,7 +86,6 @@ public class TestController {
 
         for (int i = 0; i < 6; i++)
             if (testingController.getPlayerHand(0)[i].getCardFace() == CardFace.DOWN) {
-
                 faceDownCard = i;
                 break;
             }
@@ -96,11 +96,11 @@ public class TestController {
     }
 
     @Test
-    public void drawFromPile_flipsCardsFaceUP() {
+    public void drawFromDeck_flipsCardsFaceUP() {
 
         testingController.setNumberOfPlayers(2);
 
-        Card card = testingController.drawFromPile();
+        Card card = testingController.drawFromDeck();
 
         Truth.assertThat(card.getCardFace()).isEqualTo(CardFace.UP);
     }
