@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class CLIView extends View {
 
     Scanner input;
-    int turn = 0;
 
     public CLIView() {
         this.input = new Scanner(System.in);
@@ -79,7 +78,7 @@ public class CLIView extends View {
         while (!inputCompleted) {
 
             System.out.println("Would you like to draw from the deck or take the card off the top of the discard pile?");
-            System.out.print("Enter \"Deck\" or \"Discard\" (without the quotes: )");
+            System.out.print("Enter \"Deck\" or \"Discard\" (without the quotes): ");
             String decision_deckOrDiscard = input.next();
 
             switch (decision_deckOrDiscard) {
@@ -87,25 +86,36 @@ public class CLIView extends View {
                 case "Deck" -> {
 
                     Card drawnCard = drawFromPile();
-                    System.out.println("You drew the " + drawnCard.getNumber() + " of " + drawnCard.getSuit());
-                    System.out.print("Would you like to keep it? Enter \"Yes\" or \"No\": ");
-                    String decision_keepOrDiscard = input.next();
+                    boolean deckDrawInputCompleted = false;
 
-                    switch (decision_keepOrDiscard) {
+                    while (!deckDrawInputCompleted) {
+                        System.out.println("You drew the " + drawnCard.getNumber() + " of " + drawnCard.getSuit() + "s");
+                        System.out.print("Would you like to keep it? Enter \"Yes\" or \"No\": ");
+                        String decision_keepOrDiscard = input.next();
 
-                        case "Yes" -> {
+                        switch (decision_keepOrDiscard) {
+
+                            case "Yes" -> {
 
                             int cardToDiscard = promptForDiscard();
                             discardHeldCard(getCurrentPlayerNumber(), cardToDiscard);
                             getCurrentPlayerHand()[cardToDiscard] = drawnCard;
-                            inputCompleted = true;
+
+                            inputCompleted = deckDrawInputCompleted = true;
                         }
 
-                        case "No" -> {
+                            case "No" -> {
 
                             discardUnheldCard(drawnCard);
                             System.out.println("Card discarded");
-                            inputCompleted = true;
+                            inputCompleted = deckDrawInputCompleted = true;
+                        }
+
+                            default -> {
+
+                                System.out.println("Could not parse input. Enter \"Yes\" or \"No\": ");
+
+                            }
                         }
                     }
                 }
