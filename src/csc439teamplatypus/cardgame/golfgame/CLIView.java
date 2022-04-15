@@ -14,6 +14,15 @@ public class CLIView extends View {
         this.input = new Scanner(System.in);
     }
 
+    public void endGame(String input) {
+        String quitComp = "QUIT";
+
+        if(input.equals(quitComp)) {
+            System.out.println("Thank you for playing!");
+            System.exit(0);
+        }
+    }
+
     public int promptForDiscard() {
 
         boolean inputCompleted = false;
@@ -131,9 +140,10 @@ public class CLIView extends View {
                 if (hasFaceDownCard(getCurrentPlayerNumber())) {
 
                     System.out.println("Would you like to flip one of your cards over or draw a new card?");
-                    System.out.print("Enter \"Draw\" or \"Flip\": ");
+                    System.out.print("Enter QUIT, \"Draw\" or \"Flip\": ");
                     String decision_DrawOrFlip = input.next();
 
+                    endGame(decision_DrawOrFlip); // Call endGame method to see if quit this turn
                     switch (decision_DrawOrFlip) {
 
                         case "Draw" -> {
