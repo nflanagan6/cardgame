@@ -129,10 +129,9 @@ public class CLIView extends View {
      */
     public void nextTurn() {
         if (cardsRemaining()) {
-            System.out.println("It's player " + getCurrentPlayerNumber() + 1 + "'s turn!");
+            System.out.println("It's player " + (getCurrentPlayerNumber() + 1) + "'s turn!");
             Card[] hand=getCurrentPlayerHand();
             printPlayerHand(hand);
-            System.out.println("The last discarded card is ");
             printTopOfDiscardPile();
 
             boolean inputCompleted = false;
@@ -170,6 +169,7 @@ public class CLIView extends View {
                     inputCompleted = true;
                 }
             }
+            System.out.println("\n");
             nextTurn();
         }
         else {
@@ -182,8 +182,8 @@ public class CLIView extends View {
      */
     protected void printTopOfDiscardPile() {
         Card topCard = viewTopOfDiscardPile();
-        System.out.println("The top card on the discard pile is the " + topCard.getNumber()
-                + " of " + topCard.getSuit());
+        System.out.println("\nThe top card on the discard pile is the " + topCard.getNumber()
+                + " of " + topCard.getSuit() + "s");
     }
     /**
      * Setter method for the input number of players sets players then goes to next turn
@@ -209,9 +209,9 @@ public class CLIView extends View {
                 }
             } else {
                 if (i < 2 || (i > 2 && i < 5)) {
-                    System.out.print(hand[i].getNumber() + " of " + hand[i].getSuit() + "'s, ");
+                    System.out.print(hand[i].getNumber() + " of " + hand[i].getSuit() + "s, ");
                 } else {
-                    System.out.print(hand[i].getNumber() + " of " + hand[i].getSuit() + "'s");
+                    System.out.print(hand[i].getNumber() + " of " + hand[i].getSuit() + "s");
                 }
             }
         }
