@@ -255,12 +255,14 @@ public class Controller {
     }
 
     /**
-     * Sets each players hand by dealing them cards one at a time until they have a full hand.
-     * Then it takes two of those cards and makes them face up
+     * Sets each player's hand by dealing them cards one at a time until they have a full hand,
+     * then it takes two of those cards and makes them face up. Also takes one card off the deck and places
+     * it on the discard pile (face-up) without incrementing numberOfPlayedTurns
      *
      * @author Ethan Hunt
      */
     protected void setPlayerHands() {
+
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < numberOfPlayers; j++) {
                 playerHands[j][i] = drawFromPile();
@@ -278,6 +280,9 @@ public class Controller {
             playerHands[i][num1].setCardFace(CardFace.UP);
             playerHands[i][num2].setCardFace(CardFace.UP);
         }
-    }
 
+        // Card added to discard manually instead of through discard() to avoid incrementing numberOfPlayedTurns
+        // since flipping a card over onto the discard pile at the beginning of the game is not the end of a turn
+        discard.add(drawFromPile());
+    }
 }
