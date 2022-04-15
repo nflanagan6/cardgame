@@ -80,14 +80,19 @@ public class TestController {
     public void flipCard_flipsCards_and_incrementsNumberOfPlayedTurns() {
 
         testingController.setNumberOfPlayers(2);
+        testingController.setPlayerHands();
+        int faceDownCard = -1;
 
-        for (int i = 0; i < 6; i ++) {
-            testingController.getPlayerHand(0)[i] = testingController.drawFromPile();
-        }
+        for (int i = 0; i < 6; i++)
+            if (testingController.getPlayerHand(0)[i].getCardFace() == CardFace.DOWN) {
 
-        testingController.flipCard(0, 0);
+                faceDownCard = i;
+                break;
+            }
 
-        Truth.assertThat(testingController.getPlayerHand(0)[0].getCardFace() == CardFace.UP);
+        testingController.flipCard(0, faceDownCard);
+
+        Truth.assertThat(testingController.getPlayerHand(0)[faceDownCard].getCardFace() == CardFace.UP);
         Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo(1);
     }
 
