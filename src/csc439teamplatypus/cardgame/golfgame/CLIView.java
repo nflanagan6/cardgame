@@ -78,7 +78,7 @@ public class CLIView extends View {
         while (!inputCompleted) {
 
             System.out.println("Would you like to draw from the deck or take the card off the top of the discard pile?");
-            System.out.print("Enter \"Deck\" or \"Discard\" (without the quotes: )");
+            System.out.print("Enter \"Deck\" or \"Discard\" (without the quotes): ");
             String decision_deckOrDiscard = input.next();
 
             switch (decision_deckOrDiscard) {
@@ -86,25 +86,36 @@ public class CLIView extends View {
                 case "Deck" -> {
 
                     Card drawnCard = drawFromPile();
-                    System.out.println("You drew the " + drawnCard.getNumber() + " of " + drawnCard.getSuit());
-                    System.out.print("Would you like to keep it? Enter \"Yes\" or \"No\": ");
-                    String decision_keepOrDiscard = input.next();
+                    boolean deckDrawInputCompleted = false;
 
-                    switch (decision_keepOrDiscard) {
+                    while (!deckDrawInputCompleted) {
+                        System.out.println("You drew the " + drawnCard.getNumber() + " of " + drawnCard.getSuit() + "s");
+                        System.out.print("Would you like to keep it? Enter \"Yes\" or \"No\": ");
+                        String decision_keepOrDiscard = input.next();
 
-                        case "Yes" -> {
+                        switch (decision_keepOrDiscard) {
+
+                            case "Yes" -> {
 
                             int cardToDiscard = promptForDiscard();
                             discardHeldCard(getCurrentPlayerNumber(), cardToDiscard);
                             getCurrentPlayerHand()[cardToDiscard] = drawnCard;
-                            inputCompleted = true;
+
+                            inputCompleted = deckDrawInputCompleted = true;
                         }
 
-                        case "No" -> {
+                            case "No" -> {
 
                             discardUnheldCard(drawnCard);
                             System.out.println("Card discarded");
-                            inputCompleted = true;
+                            inputCompleted = deckDrawInputCompleted = true;
+                        }
+
+                            default -> {
+
+                                System.out.println("Could not parse input. Enter \"Yes\" or \"No\": ");
+
+                            }
                         }
                     }
                 }
@@ -128,10 +139,9 @@ public class CLIView extends View {
      */
     public void nextTurn() {
         if (cardsRemaining()) {
-            System.out.println("It's player " + getCurrentPlayerNumber() + 1 + "'s turn!");
+            System.out.println("It's player " + (getCurrentPlayerNumber() + 1) + "'s turn!");
             Card[] hand=getCurrentPlayerHand();
             printPlayerHand(hand);
-            System.out.println("The last discarded card is ");
             printTopOfDiscardPile();
 
             boolean inputCompleted = false;
@@ -162,6 +172,7 @@ public class CLIView extends View {
                     inputCompleted = true;
                 }
             }
+            System.out.println("\n");
             nextTurn();
         }
         else {
@@ -175,8 +186,8 @@ public class CLIView extends View {
      */
     protected void printTopOfDiscardPile() {
         Card topCard = viewTopOfDiscardPile();
-        System.out.println("The top card on the discard pile is the " + topCard.getNumber()
-                + " of " + topCard.getSuit());
+        System.out.println("\nThe top card on the discard pile is the " + topCard.getNumber()
+                + " of " + topCard.getSuit() + "s");
     }
     /**
      * Setter method for the input number of players sets players then goes to next turn
@@ -202,9 +213,9 @@ public class CLIView extends View {
                 }
             } else {
                 if (i < 2 || (i > 2 && i < 5)) {
-                    System.out.print(hand[i].getNumber() + " of " + hand[i].getSuit() + "'s, ");
+                    System.out.print(hand[i].getNumber() + " of " + hand[i].getSuit() + "s, ");
                 } else {
-                    System.out.print(hand[i].getNumber() + " of " + hand[i].getSuit() + "'s");
+                    System.out.print(hand[i].getNumber() + " of " + hand[i].getSuit() + "s");
                 }
             }
         }
