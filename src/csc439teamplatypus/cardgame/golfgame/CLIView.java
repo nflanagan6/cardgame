@@ -4,9 +4,7 @@ import csc439teamplatypus.cardgame.Card;
 import csc439teamplatypus.cardgame.CardFace;
 import java.util.Scanner;
 
-/**
- * CLIView displays player input in parallel with controller
- */
+
 public class CLIView extends View {
 
     Scanner input;
@@ -37,8 +35,8 @@ public class CLIView extends View {
         return -1;
     }
 
-    /**
-     * Handles player decision on flipping or not flipping a face down card
+    /** Prompts the player to select a face-down Card to flip over and displays their new hand
+     *
      */
     public void chooseCardToFlip() {
 
@@ -70,8 +68,9 @@ public class CLIView extends View {
     }
 
 
-    /**
-     * Handles deck interaction with player input, keep or discard card you drew
+    /** Draws a Card from the deck and asks the player whether they want to keep it. If they choose to keep it,
+     * they're asked which card it should replace.
+     *
      */
     public void drawFromDeck() {
         Card drawnCard = drawCardFromDeck();
@@ -119,8 +118,9 @@ public class CLIView extends View {
         super.drawDiscard(playerNumber, cardToReplace);
     }
 
-    /**
-     * Handles next turn of golf
+    /** Prompts the player to complete their turn and moves on to the next player's turn while there are
+     * Cards remaining in the deck
+     *
      */
     public void nextTurn() {
         if (cardsRemaining()) {
@@ -163,8 +163,8 @@ public class CLIView extends View {
         }
     }
 
-    /**
-     * Prints top of discard pile
+    /** Displays the top card on the discard pile
+     *
      */
     protected void printTopOfDiscardPile() {
         Card topCard = viewTopOfDiscardPile();
@@ -172,9 +172,9 @@ public class CLIView extends View {
                 + " of " + topCard.getSuit() + "s");
     }
     /**
-     * Setter method for the input number of players sets players then goes to next turn
+     * Setter method for the input number of players. Sets players, then goes to next turn
      *
-     * @param numberOfPlayers
+     * @param numberOfPlayers The number of people playing the game
      */
     protected void setNumOfPlayers(int numberOfPlayers) {
         System.out.println("\tYou have chosen " + numberOfPlayers + " players!\n");
@@ -182,6 +182,11 @@ public class CLIView extends View {
         setPlayerHand();
         nextTurn();
     }
+
+    /** Prints each Card's suit and number in a Card[].
+     *
+     * @param hand Card[] of Cards to display
+     */
     protected void printPlayerHand(Card hand[]) {
         for (int i = 0; i < hand.length; i++) {
             if (i == 3) {
@@ -203,8 +208,8 @@ public class CLIView extends View {
         }
     }
 
-    /**
-     * Initializer of golf game with text displaying you're in the game and asking how many players
+    /** Asks player to enter the number of people playing golf and starts the game
+     *
      */
     public void startGame() {
         System.out.println("\t\tWelcome to Golf!");
