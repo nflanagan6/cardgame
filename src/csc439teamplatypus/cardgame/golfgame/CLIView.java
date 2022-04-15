@@ -3,7 +3,6 @@ package csc439teamplatypus.cardgame.golfgame;
 import csc439teamplatypus.cardgame.Card;
 import csc439teamplatypus.cardgame.CardFace;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -129,25 +128,17 @@ public class CLIView extends View {
      * Handles next turn of golf
      */
     public void nextTurn() {
-
-
-        //System.out.println("It's player " + getCurrentPlayerNumber() + 1 + "'s turn!");
-
-        turn++;
-
-        //Print hand for current player
-        //Print card on top of discard pile
-
         if (cardsRemaining()) {
+            System.out.println("It's player " + getCurrentPlayerNumber() + 1 + "'s turn!");
+            Card[] hand=getCurrentPlayerHand();
+            printPlayerHand(hand);
+            System.out.println("The last discarded card is ");
+            printTopOfDiscardPile();
 
             boolean inputCompleted = false;
 
             while (!inputCompleted) {
-                System.out.println("It's currently player's " + getCurrentPlayerNumber() + " hand.");
-                System.out.println("The turn number is " + turn);
-                System.out.println("Your hand is " + Arrays.toString(getCurrentPlayerHand()));
-                System.out.println("The last discarded card is ");
-                printTopOfDiscardPile();
+
 
                 if (hasFaceDownCard(getCurrentPlayerNumber())) {
 
@@ -181,6 +172,9 @@ public class CLIView extends View {
             }
             nextTurn();
         }
+        else {
+            System.out.print("There are no more cards remaining");
+        }
     }
 
     /**
@@ -191,7 +185,6 @@ public class CLIView extends View {
         System.out.println("The top card on the discard pile is the " + topCard.getNumber()
                 + " of " + topCard.getSuit());
     }
-
     /**
      * Setter method for the input number of players sets players then goes to next turn
      *
@@ -202,6 +195,26 @@ public class CLIView extends View {
         setNumberOfPlayers(numberOfPlayers);
         setPlayerHand();
         nextTurn();
+    }
+    protected void printPlayerHand(Card hand[]) {
+        for (int i = 0; i < hand.length; i++) {
+            if (i == 3) {
+                System.out.print("\n");
+            }
+            if (hand[i].getCardFace() == CardFace.DOWN) {
+                if (i < 2 || (i > 2 && i < 5)) {
+                    System.out.print("Face Down, ");
+                } else {
+                    System.out.print("Face Down");
+                }
+            } else {
+                if (i < 2 || (i > 2 && i < 5)) {
+                    System.out.print(hand[i].getNumber() + " of " + hand[i].getSuit() + "'s, ");
+                } else {
+                    System.out.print(hand[i].getNumber() + " of " + hand[i].getSuit() + "'s");
+                }
+            }
+        }
     }
 
     /**
