@@ -10,10 +10,13 @@ public class CLIView extends View {
     Scanner input;
 
     public CLIView() {
-
+        // Create new scanner object
         this.input = new Scanner(System.in);
     }
 
+    /** Compares user's input on their turn to the key command "QUIT" to give ability to quit game
+     * @param input the input passed in from user
+     * @author Abbi Landers*/
     public void endGame(String input) {
         String quitComp = "QUIT";
 
@@ -23,6 +26,7 @@ public class CLIView extends View {
         }
     }
 
+    /** Prompt user for index of the card they would like to discard, checks for valid input, returns this card to discard*/
     public int promptForDiscard() {
 
         boolean inputCompleted = false;
@@ -45,6 +49,8 @@ public class CLIView extends View {
         return -1;
     }
 
+    /** Prompts user to choose card to flip. Gives options of cards that are face down to choose from.
+     * Once user chooses a valid card, we set inputCompleted to true so we stop prompting*/
     public void chooseCardToFlip() {
 
         boolean inputCompleted = false;
@@ -73,6 +79,8 @@ public class CLIView extends View {
         }
     }
 
+    /** Prompts user to choose draw source. Can choose to draw from deck or discard pile. Uses cases for each.
+     * If user chooses deck, user is prompted if they would like to keep the card.*/
     public void chooseDrawSource() {
 
         boolean inputCompleted = false;
