@@ -164,7 +164,6 @@ public class Controller {
         else {
 
             playerHands[playerNumber][cardToFlip].setCardFace(CardFace.UP);
-            numberOfPlayedTurns++;
         }
     }
 

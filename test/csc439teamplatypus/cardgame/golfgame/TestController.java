@@ -77,7 +77,7 @@ public class TestController {
     }
 
     @Test
-    public void flipCard_flipsCards_and_incrementsNumberOfPlayedTurns() {
+    public void flipCard_flipsCards() {
 
         testingController.setNumberOfPlayers(2);
         testingController.setPlayerHands();
@@ -93,7 +93,6 @@ public class TestController {
         testingController.flipCard(0, faceDownCard);
 
         Truth.assertThat(testingController.getPlayerHand(0)[faceDownCard].getCardFace()).isEqualTo(CardFace.UP);
-        Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo(1);
     }
 
     @Test

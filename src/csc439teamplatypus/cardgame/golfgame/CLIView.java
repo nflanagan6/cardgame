@@ -2,9 +2,7 @@ package csc439teamplatypus.cardgame.golfgame;
 
 import csc439teamplatypus.cardgame.Card;
 import csc439teamplatypus.cardgame.CardFace;
-
 import java.util.Scanner;
-
 
 /**
  * CLIView displays player input in parallel with controller
@@ -60,79 +58,66 @@ public class CLIView extends View {
 
                 flipCard(getCurrentPlayerNumber(), cardToFlip);
                 inputCompleted = true;
+                System.out.println("You turned over a " + getCurrentPlayerHand()[cardToFlip].getNumber()
+                + " of " + getCurrentPlayerHand()[cardToFlip].getSuit() + "s");
+                System.out.println("Your new hand is: ");
+                printPlayerHand(getCurrentPlayerHand());
             } else {
 
                 System.out.println("Card number " + cardToFlip + " cannot be flipped over.");
             }
-
         }
     }
+
 
     /**
      * Handles deck interaction with player input, keep or discard card you drew
      */
-    public void chooseDrawSource() {
+    public void drawFromDeck() {
+        Card drawnCard = drawFromPile();
+        boolean deckDrawInputCompleted = false;
 
-        boolean inputCompleted = false;
+        while (!deckDrawInputCompleted) {
+            System.out.println("You drew the " + drawnCard.getNumber() + " of " + drawnCard.getSuit() + "s");
+            System.out.print("Would you like to keep it? Enter \"Yes\" or \"No\": ");
+            String decision_keepOrDiscard = input.next();
 
-        while (!inputCompleted) {
-
-            System.out.println("Would you like to draw from the deck or take the card off the top of the discard pile?");
-            System.out.print("Enter \"Deck\" or \"Discard\" (without the quotes): ");
-            String decision_deckOrDiscard = input.next();
-
-            switch (decision_deckOrDiscard) {
-
-                case "Deck" -> {
-
-                    Card drawnCard = drawFromPile();
-                    boolean deckDrawInputCompleted = false;
-
-                    while (!deckDrawInputCompleted) {
-                        System.out.println("You drew the " + drawnCard.getNumber() + " of " + drawnCard.getSuit() + "s");
-                        System.out.print("Would you like to keep it? Enter \"Yes\" or \"No\": ");
-                        String decision_keepOrDiscard = input.next();
-
-                        switch (decision_keepOrDiscard) {
-
-                            case "Yes" -> {
-
-                            int cardToDiscard = promptForDiscard();
-                            discardHeldCard(getCurrentPlayerNumber(), cardToDiscard);
-                            getCurrentPlayerHand()[cardToDiscard] = drawnCard;
-
-                            inputCompleted = deckDrawInputCompleted = true;
-                        }
-
-                            case "No" -> {
-
-                            discardUnheldCard(drawnCard);
-                            System.out.println("Card discarded");
-                            inputCompleted = deckDrawInputCompleted = true;
-                        }
-
-                            default -> {
-
-                                System.out.println("Could not parse input. Enter \"Yes\" or \"No\": ");
-
-                            }
-                        }
-                    }
+            switch (decision_keepOrDiscard) {
+                case "Yes" -> {
+                    int cardToDiscard = promptForDiscard();
+                    Card cardToDis = getCurrentPlayerHand()[cardToDiscard];
+                    getCurrentPlayerHand()[cardToDiscard] = drawnCard;
+                    System.out.println("Your new hand is: ");
+                    printPlayerHand(getCurrentPlayerHand());
+                    discardUnheldCard(cardToDis);
+                    deckDrawInputCompleted = true;
                 }
-
-                case "Discard" -> {
-
-                    drawDiscard(getCurrentPlayerNumber(), promptForDiscard());
-                    inputCompleted = true;
+                case "No" -> {
+                    System.out.println("Card discarded");
+                    chooseCardToFlip();
+                    discardUnheldCard(drawnCard);
+                    deckDrawInputCompleted = true;
                 }
-
                 default -> {
-                    System.out.println("Could not parse input: " + decision_deckOrDiscard);
+                    System.out.println("Could not parse input. Enter \"Yes\" or \"No\": ");
                 }
             }
         }
     }
 
+    //Overrides drawDiscard to be able to print off what the player's hand will be before ending their turn
+    @Override
+    protected void drawDiscard(int playerNumber, int cardToReplace) {
+
+        Card[] newHandToBe = new Card[6];
+
+        for (int i = 0; i < 6; i++)
+            newHandToBe[i] = getCurrentPlayerHand()[i];
+        newHandToBe[cardToReplace] = viewTopOfDiscardPile();
+        System.out.println("Your new hand is: ");
+        printPlayerHand(newHandToBe);
+        super.drawDiscard(playerNumber, cardToReplace);
+    }
 
     /**
      * Handles next turn of golf
@@ -140,43 +125,40 @@ public class CLIView extends View {
     public void nextTurn() {
         if (cardsRemaining()) {
             System.out.println("It's player " + (getCurrentPlayerNumber() + 1) + "'s turn!");
-            Card[] hand=getCurrentPlayerHand();
+            Card[] hand = getCurrentPlayerHand();
             printPlayerHand(hand);
             printTopOfDiscardPile();
 
             boolean inputCompleted = false;
 
             while (!inputCompleted) {
-                if (hasFaceDownCard(getCurrentPlayerNumber())) {
-                    System.out.println("Would you like to flip one of your cards over or draw a new card?");
-                    System.out.print("Enter \"Draw\" or \"Flip\": ");
-                    String decision_DrawOrFlip = input.next();
-                    switch (decision_DrawOrFlip) {
-                        case "QUIT" -> {
-                            endGame();
-                        }
-                        case "Draw" -> {
-                            chooseDrawSource();
-                            inputCompleted = true;
-                        }
-                        case "Flip" -> {
-                            chooseCardToFlip();
-                            inputCompleted = true;
-                        }
-                        default -> {
-                            System.out.println("Could not parse input " + decision_DrawOrFlip);
-                        }
+
+                System.out.println("Would you like to draw a new card from the deck or take from the top " +
+                        "of the discard pile?");
+                System.out.print("Enter \"Deck\" or \"Discard\" (Type \"QUIT\" to exit the game): ");
+                String decision_chooseDrawSource = input.next();
+                switch (decision_chooseDrawSource) {
+                    case "QUIT" -> {
+                        endGame();
                     }
-                } else {
-                    chooseDrawSource();
-                    inputCompleted = true;
+                    case "Deck" -> {
+                        drawFromDeck();
+                        inputCompleted = true;
+                    }
+                    case "Discard" -> {
+                        drawDiscard(getCurrentPlayerNumber(), promptForDiscard());
+                        inputCompleted = true;
+                    }
+                    default -> {
+                        System.out.println("Could not parse input " + decision_chooseDrawSource);
+                    }
                 }
             }
             System.out.println("\n");
             nextTurn();
         }
         else {
-            System.out.print("There are no more cards remaining");
+            System.out.println("There are no more cards remaining");
             endGame();
         }
     }
@@ -195,7 +177,7 @@ public class CLIView extends View {
      * @param numberOfPlayers
      */
     protected void setNumOfPlayers(int numberOfPlayers) {
-        System.out.println("\tYou have chosen " + numberOfPlayers + " players!");
+        System.out.println("\tYou have chosen " + numberOfPlayers + " players!\n");
         setNumberOfPlayers(numberOfPlayers);
         setPlayerHand();
         nextTurn();
