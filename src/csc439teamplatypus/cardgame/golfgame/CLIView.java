@@ -151,8 +151,11 @@ public class CLIView extends View {
                     System.out.print("Enter QUIT, \"Draw\" or \"Flip\": ");
                     String decision_DrawOrFlip = input.next();
 
-                    endGame(decision_DrawOrFlip); // Call endGame method to see if quit this turn
                     switch (decision_DrawOrFlip) {
+
+                        case "QUIT" -> {
+                            endGame(decision_DrawOrFlip); // Call endGame method to see if quit this turn
+                        }
 
                         case "Draw" -> {
 
