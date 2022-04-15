@@ -222,7 +222,6 @@ public class CLIView extends View {
     }
 
     /** Compares user's input on their turn to the key command "QUIT" to give ability to quit game
-     * @param input the input passed in from user
      * @author Abbi Landers*/
     public void endGame() {
         System.out.println("Thank you for playing!");
