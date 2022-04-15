@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class CLIView extends View {
 
     Scanner input;
-    int turn = 0;
 
     public CLIView() {
         this.input = new Scanner(System.in);
@@ -138,34 +137,27 @@ public class CLIView extends View {
             boolean inputCompleted = false;
 
             while (!inputCompleted) {
-
-
                 if (hasFaceDownCard(getCurrentPlayerNumber())) {
-
                     System.out.println("Would you like to flip one of your cards over or draw a new card?");
                     System.out.print("Enter \"Draw\" or \"Flip\": ");
                     String decision_DrawOrFlip = input.next();
-
                     switch (decision_DrawOrFlip) {
-
+                        case "QUIT" -> {
+                            endGame();
+                        }
                         case "Draw" -> {
-
                             chooseDrawSource();
                             inputCompleted = true;
                         }
-
                         case "Flip" -> {
-
                             chooseCardToFlip();
                             inputCompleted = true;
                         }
-
                         default -> {
                             System.out.println("Could not parse input " + decision_DrawOrFlip);
                         }
                     }
                 } else {
-
                     chooseDrawSource();
                     inputCompleted = true;
                 }
@@ -174,6 +166,7 @@ public class CLIView extends View {
         }
         else {
             System.out.print("There are no more cards remaining");
+            endGame();
         }
     }
 
@@ -226,5 +219,13 @@ public class CLIView extends View {
         System.out.print("Please enter a number between 2 and 7: ");
         int numOfPlayers = Integer.parseInt(input.next());
         setNumOfPlayers(numOfPlayers);
+    }
+
+    /** Compares user's input on their turn to the key command "QUIT" to give ability to quit game
+     * @param input the input passed in from user
+     * @author Abbi Landers*/
+    public void endGame() {
+        System.out.println("Thank you for playing!");
+        System.exit(0);
     }
 }
