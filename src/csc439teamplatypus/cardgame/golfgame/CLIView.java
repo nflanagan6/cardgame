@@ -1,13 +1,18 @@
 package csc439teamplatypus.cardgame.golfgame;
 
 import csc439teamplatypus.cardgame.Card;
-import csc439teamplatypus.cardgame.*;
+import csc439teamplatypus.cardgame.CardFace;
+
 import java.util.Scanner;
 
 
+/**
+ * CLIView displays player input in parallel with controller
+ */
 public class CLIView extends View {
 
     Scanner input;
+    int turn = 0;
 
     public CLIView() {
         this.input = new Scanner(System.in);
@@ -27,14 +32,17 @@ public class CLIView extends View {
 
             else {
 
-                 inputCompleted = true;
-                 return cardToDiscard;
+                inputCompleted = true;
+                return cardToDiscard;
             }
         }
 
         return -1;
     }
 
+    /**
+     * Handles player decision on flipping or not flipping a face down card
+     */
     public void chooseCardToFlip() {
 
         boolean inputCompleted = false;
@@ -53,16 +61,17 @@ public class CLIView extends View {
 
                 flipCard(getCurrentPlayerNumber(), cardToFlip);
                 inputCompleted = true;
-            }
-
-            else {
+            } else {
 
                 System.out.println("Card number " + cardToFlip + " cannot be flipped over.");
-             }
+            }
 
         }
     }
 
+    /**
+     * Handles deck interaction with player input, keep or discard card you drew
+     */
     public void chooseDrawSource() {
 
         boolean inputCompleted = false;
@@ -107,25 +116,29 @@ public class CLIView extends View {
                     inputCompleted = true;
                 }
 
-                default -> { System.out.println("Could not parse input: " + decision_deckOrDiscard); }
+                default -> {
+                    System.out.println("Could not parse input: " + decision_deckOrDiscard);
+                }
             }
         }
     }
 
 
-
+    /**
+     * Handles next turn of golf
+     */
     public void nextTurn() {
-
-        System.out.println("It's player " + getCurrentPlayerNumber() + 1 + "'s turn!");
-
-        //Print hand for current player
-        //Print card on top of discard pile
-
         if (cardsRemaining()) {
+            System.out.println("It's player " + getCurrentPlayerNumber() + 1 + "'s turn!");
+            Card[] hand=getCurrentPlayerHand();
+            printPlayerHand(hand);
+            System.out.println("The last discarded card is ");
+            printTopOfDiscardPile();
 
             boolean inputCompleted = false;
 
             while (!inputCompleted) {
+
 
                 if (hasFaceDownCard(getCurrentPlayerNumber())) {
 
@@ -151,30 +164,62 @@ public class CLIView extends View {
                             System.out.println("Could not parse input " + decision_DrawOrFlip);
                         }
                     }
-                }
-
-                else {
+                } else {
 
                     chooseDrawSource();
                     inputCompleted = true;
                 }
             }
+            nextTurn();
+        }
+        else {
+            System.out.print("There are no more cards remaining");
         }
     }
 
+    /**
+     * Prints top of discard pile
+     */
     protected void printTopOfDiscardPile() {
         Card topCard = viewTopOfDiscardPile();
         System.out.println("The top card on the discard pile is the " + topCard.getNumber()
                 + " of " + topCard.getSuit());
     }
-
+    /**
+     * Setter method for the input number of players sets players then goes to next turn
+     *
+     * @param numberOfPlayers
+     */
     protected void setNumOfPlayers(int numberOfPlayers) {
         System.out.println("\tYou have chosen " + numberOfPlayers + " players!");
         setNumberOfPlayers(numberOfPlayers);
         setPlayerHand();
         nextTurn();
     }
+    protected void printPlayerHand(Card hand[]) {
+        for (int i = 0; i < hand.length; i++) {
+            if (i == 3) {
+                System.out.print("\n");
+            }
+            if (hand[i].getCardFace() == CardFace.DOWN) {
+                if (i < 2 || (i > 2 && i < 5)) {
+                    System.out.print("Face Down, ");
+                } else {
+                    System.out.print("Face Down");
+                }
+            } else {
+                if (i < 2 || (i > 2 && i < 5)) {
+                    System.out.print(hand[i].getNumber() + " of " + hand[i].getSuit() + "'s, ");
+                } else {
+                    System.out.print(hand[i].getNumber() + " of " + hand[i].getSuit() + "'s");
+                }
+            }
+        }
+    }
 
+    /**
+     * Initializer of golf game with text displaying you're in the game and asking how many players
+     */
     public void startGame() {
         System.out.println("\t\tWelcome to Golf!");
         System.out.println("\tHow many people will be playing?");

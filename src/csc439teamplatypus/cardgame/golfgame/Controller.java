@@ -1,6 +1,10 @@
 package csc439teamplatypus.cardgame.golfgame;
 
-import csc439teamplatypus.cardgame.*;
+import csc439teamplatypus.cardgame.Card;
+import csc439teamplatypus.cardgame.CardFace;
+import csc439teamplatypus.cardgame.CardNumber;
+import csc439teamplatypus.cardgame.CardSuit;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,25 +18,30 @@ public class Controller {
     private int numberOfPlayedTurns;
     Random rand = new Random();
 
-    protected Controller (View view) {
+    /**Setter for view
+     * @param view
+     */
+    protected Controller(View view) {
         this.view = view;
     }
 
-    /** Returns whether there are Cards left to draw from in the deck
+    /**
+     * Returns whether there are Cards left to draw from in the deck
      *
-     * @author Nathan Flanagan
      * @return Whether the size of the deck is > 0
+     * @author Nathan Flanagan
      */
 
     protected boolean cardsRemaining() {
         return deck.size() > 0;
     }
 
-    /** Adds the cards in numberOfDecks standard decks to deck
+    /**
+     * Adds the cards in numberOfDecks standard decks to deck
      *
-     * @author Nathan Flanagan
-     * @param deck The deck the Cards should be added to
+     * @param deck          The deck the Cards should be added to
      * @param numberOfDecks The number of standard decks that should be added to deck
+     * @author Nathan Flanagan
      */
 
     private void createCardDeck(ArrayList<Card> deck, int numberOfDecks) {
@@ -96,11 +105,12 @@ public class Controller {
         }
     }
 
-    /** Adds a Card to the top of the discard pile and increments numberOfPlayedTurns by 1. Ensures the card
+    /**
+     * Adds a Card to the top of the discard pile and increments numberOfPlayedTurns by 1. Ensures the card
      * added to the
      *
-     * @author Nathan Flanagan
      * @param cardToDiscard The Card to be placed on top of the discard pile
+     * @author Nathan Flanagan
      */
 
     protected void discard(Card cardToDiscard) {
@@ -109,9 +119,11 @@ public class Controller {
         numberOfPlayedTurns++;
     }
 
-    /** Replaces the Card at playerHands[playerNumber][cardToReplace] with the Card off the top of the
+    /**
+     * Replaces the Card at playerHands[playerNumber][cardToReplace] with the Card off the top of the
      * discard pile. Increments numberOfPlayedTurns by 1.
-     * @param playerNumber The current player
+     *
+     * @param playerNumber  The current player
      * @param cardToReplace The index of the card the current player wishes to replace
      */
 
@@ -123,10 +135,11 @@ public class Controller {
         numberOfPlayedTurns++;
     }
 
-    /** Returns a Card face-up off the deck
+    /**
+     * Returns a Card face-up off the deck
      *
-     * @author Nathan Flanagan
      * @return A random card from the deck
+     * @author Nathan Flanagan
      */
 
     protected Card drawFromPile() {
@@ -135,12 +148,13 @@ public class Controller {
         return cardToReturn;
     }
 
-    /** Flips the Card at playerHands[playerNumber][cardToFlip] if it is face-down. Throws an
+    /**
+     * Flips the Card at playerHands[playerNumber][cardToFlip] if it is face-down. Throws an
      * IllegalArgumentException if already face-up
      *
-     * @author Nathan Flanagan
      * @param playerNumber The player whose Card should be flipped
-     * @param cardToFlip The index of the Card that should be turned face-up
+     * @param cardToFlip   The index of the Card that should be turned face-up
+     * @author Nathan Flanagan
      */
 
     protected void flipCard(int playerNumber, int cardToFlip) {
@@ -154,31 +168,34 @@ public class Controller {
         }
     }
 
-    /** Returns the number of turns that have been completed so far in the game
+    /**
+     * Returns the number of turns that have been completed so far in the game
      *
-     * @author Nathan Flanagan
      * @return The number of completed turns
+     * @author Nathan Flanagan
      */
 
     protected int getNumberOfPlayedTurns() {
         return numberOfPlayedTurns;
     }
 
-    /** Returns the number of players in the game
+    /**
+     * Returns the number of players in the game
      *
-     * @author Nathan Flanagan
      * @return The number of players in the game
+     * @author Nathan Flanagan
      */
 
     protected int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
-    /** Returns a player's current hand
+    /**
+     * Returns a player's current hand
      *
-     * @author Nathan Flanagan
      * @param playerNumber The player whose hand should be returned
      * @return The player's hand
+     * @author Nathan Flanagan
      */
 
     protected Card[] getPlayerHand(int playerNumber) {
@@ -189,19 +206,18 @@ public class Controller {
         return playerHands[playerNumber];
     }
 
-    /** Accepts the number of players (must be between 2 and 7, inclusively) and instantiates deck, discard,
+    /**
+     * Accepts the number of players (must be between 2 and 7, inclusively) and instantiates deck, discard,
      * playerHands, numberOfPlayers, and the numberOfPlayedTurns
      *
-     * @author Nathan Flanagan
      * @param numberOfPlayers The number of people playing Golf. Must be inclusively between 2 and 7
+     * @author Nathan Flanagan
      */
 
     protected void setNumberOfPlayers(int numberOfPlayers) {
         if (numberOfPlayers < 2 || numberOfPlayers > 7) {
             throw new IllegalArgumentException("The number of players must be between 2 and 7 (inclusively)");
-        }
-
-        else {
+        } else {
 
             this.numberOfPlayers = numberOfPlayers;
             playerHands = new Card[numberOfPlayers][6];
@@ -215,10 +231,11 @@ public class Controller {
         }
     }
 
-    /** Returns the last Card placed on the discard pile without moving it off the pile
+    /**
+     * Returns the last Card placed on the discard pile without moving it off the pile
      *
-     * @author Nathan Flanagan
      * @return The top Card on the discard pile
+     * @author Nathan Flanagan
      */
 
     protected Card viewTopOfDiscardPile() {
@@ -226,22 +243,25 @@ public class Controller {
         return discard.get(discard.size() - 1);
     }
 
-    /** Only intended for testing
+    /**
+     * Only intended for testing
      *
-     * @author Nathan Flanagan
      * @return the Controller's deck
+     * @author Nathan Flanagan
      */
 
     protected ArrayList<Card> getDeck() {
         return deck;
     }
 
-    /** Sets each players hand by dealing them cards one at a time until they have a full hand.
+    /**
+     * Sets each players hand by dealing them cards one at a time until they have a full hand.
      * Then it takes two of those cards and makes them face up
+     *
      * @author Ethan Hunt
      */
     protected void setPlayerHands() {
-        for (int i = 0; i < 6; i ++) {
+        for (int i = 0; i < 6; i++) {
             for (int j = 0; j < numberOfPlayers; j++) {
                 playerHands[j][i] = drawFromPile();
                 playerHands[j][i].setCardFace(CardFace.DOWN);
@@ -259,4 +279,5 @@ public class Controller {
             playerHands[i][num2].setCardFace(CardFace.UP);
         }
     }
+
 }
