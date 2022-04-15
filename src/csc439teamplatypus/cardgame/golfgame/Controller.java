@@ -18,9 +18,11 @@ public class Controller {
     private int numberOfPlayedTurns;
     Random rand = new Random();
 
-    /**Setter for view
+    /** Creates a new Controller
+     *
      * @param view
      */
+
     protected Controller(View view) {
         this.view = view;
     }
@@ -107,7 +109,7 @@ public class Controller {
 
     /**
      * Adds a Card to the top of the discard pile and increments numberOfPlayedTurns by 1. Ensures the card
-     * added to the
+     * added to the discard pile is face-up
      *
      * @param cardToDiscard The Card to be placed on top of the discard pile
      * @author Nathan Flanagan
@@ -142,7 +144,7 @@ public class Controller {
      * @author Nathan Flanagan
      */
 
-    protected Card drawFromPile() {
+    protected Card drawFromDeck() {
         Card cardToReturn = deck.remove(rand.nextInt(deck.size()));
         cardToReturn.setCardFace(CardFace.UP);
         return cardToReturn;
@@ -198,7 +200,7 @@ public class Controller {
      */
 
     protected Card[] getPlayerHand(int playerNumber) {
-        if (playerNumber >= playerHands.length) {
+        if (playerNumber >= playerHands.length || playerNumber < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -243,17 +245,6 @@ public class Controller {
     }
 
     /**
-     * Only intended for testing
-     *
-     * @return the Controller's deck
-     * @author Nathan Flanagan
-     */
-
-    protected ArrayList<Card> getDeck() {
-        return deck;
-    }
-
-    /**
      * Sets each player's hand by dealing them cards one at a time until they have a full hand,
      * then it takes two of those cards and makes them face up. Also takes one card off the deck and places
      * it on the discard pile (face-up) without incrementing numberOfPlayedTurns
@@ -264,7 +255,7 @@ public class Controller {
 
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < numberOfPlayers; j++) {
-                playerHands[j][i] = drawFromPile();
+                playerHands[j][i] = drawFromDeck();
                 playerHands[j][i].setCardFace(CardFace.DOWN);
             }
         }
@@ -282,6 +273,19 @@ public class Controller {
 
         // Card added to discard manually instead of through discard() to avoid incrementing numberOfPlayedTurns
         // since flipping a card over onto the discard pile at the beginning of the game is not the end of a turn
-        discard.add(drawFromPile());
+        discard.add(drawFromDeck());
     }
+
+
+    /**
+     * Only intended for testing
+     *
+     * @return the Controller's deck
+     * @author Nathan Flanagan
+     */
+
+    protected ArrayList<Card> getDeck() {
+        return deck;
+    }
+
 }

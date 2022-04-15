@@ -44,9 +44,9 @@ public abstract class View {
     /** Takes from draw pile a card and passes it into controller
      * @return Card from drawpile
      */
-    protected Card drawFromPile() {
+    protected Card drawCardFromDeck() {
 
-        return controller.drawFromPile();
+        return controller.drawFromDeck();
     }
 
     /** checks the players hand if they have a card face down
