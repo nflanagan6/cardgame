@@ -23,14 +23,13 @@ public class CLIViewTest extends CLIView {
         while (!inputCompleted) {
 
             System.out.print("Enter the index of the card you would like to discard: ");
-            int cardToDiscard = input.nextInt();
 
-            if (cardToDiscard < 0 || cardToDiscard > 5)
-                System.out.println(cardToDiscard + " is not a valid index. Please enter a number between 0 & 5");
+            if (cardToDis < 0 || cardToDis > 5)
+                System.out.println(cardToDis + " is not a valid index. Please enter a number between 0 & 5");
 
             else {
                 inputCompleted = true;
-                return cardToDiscard;
+                return cardToDis;
             }
         }
 
@@ -74,17 +73,17 @@ public class CLIViewTest extends CLIView {
      * Handles deck interaction with player input, keep or discard card you drew
      */
     public void drawFromDeck(String deckDecision, int cardToFlip) {
-        Card drawnCard = drawFromPile();
+        Card drawnCard = drawCardFromDeck();
         boolean deckDrawInputCompleted = false;
 
         while (!deckDrawInputCompleted) {
             System.out.println("You drew the " + drawnCard.getNumber() + " of " + drawnCard.getSuit() + "s");
             System.out.print("Would you like to keep it? Enter \"Yes\" or \"No\": ");
-            String decision_keepOrDiscard = input.next();
+            //String decision_keepOrDiscard = input.next();
 
-            switch (decision_keepOrDiscard) {
+            switch (deckDecision) {
                 case "Yes" -> {
-                    int cardToDiscard = promptForDiscard();
+                    int cardToDiscard = promptForDiscard(cardToFlip);
                     Card cardToDis = getCurrentPlayerHand()[cardToDiscard];
                     getCurrentPlayerHand()[cardToDiscard] = drawnCard;
                     System.out.println("Your new hand is: ");
@@ -134,7 +133,6 @@ public class CLIViewTest extends CLIView {
                 System.out.print("Enter \"Deck\" or \"Discard\" (Type \"QUIT\" to exit the game): ");
                 switch (inputDraw) {
                     case "QUIT" -> {
-                        endGame();
                     }
                     case "Deck" -> {
                         drawFromDeck(deckDecision, cardToFlipOrDis);
@@ -208,6 +206,6 @@ public class CLIViewTest extends CLIView {
      * @author Abbi Landers*/
     public void endGame() {
         System.out.println("Thank you for playing!");
-        System.exit(0);
+
     }
 }
