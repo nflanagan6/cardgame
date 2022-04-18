@@ -217,6 +217,18 @@ public class CLIView extends View {
         System.out.print("Please enter a number between 2 and 7: ");
         int numOfPlayers = Integer.parseInt(input.next());
         setNumOfPlayers(numOfPlayers);
+        System.out.println("How many holes would you like to play?");
+        System.out.println("Enter 9 or 18: ");
+        int numOfHoles=Integer.parseInt(input.next());
+        howManyHoles(numOfHoles);
+    }
+
+    /**
+     *Takes numOfHoles and sets game length
+     * @param numOfHoles Number of holes being played
+     */
+    public void howManyHoles(int numOfHoles){
+        System.out.print("You are playing "+ numOfHoles +" holes of golf!");
     }
 
     /** Compares user's input on their turn to the key command "QUIT" to give ability to quit game

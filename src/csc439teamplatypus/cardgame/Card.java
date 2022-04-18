@@ -26,7 +26,7 @@ public class Card {
     }
 
     /**
-     * Two simple get methods to return the cards suit and number
+     * Two simple get methods to return the cards suit and number as well as face
      */
     public CardSuit getSuit() {
         return suit;
@@ -39,12 +39,17 @@ public class Card {
     public CardFace getCardFace() { return face; }
 
 
+    /**
+     * Simple set method for the face of the card based on face parameter
+     * @param face
+     */
     public void setCardFace(CardFace face) {
         this.face = face;
     }
 
     /**
      * Two methods that can be called on inside of tests to check if the created card is a red card or a black card.
+     * @param suit
      */
     public boolean isRed(CardSuit suit) {
         switch(suit) {
