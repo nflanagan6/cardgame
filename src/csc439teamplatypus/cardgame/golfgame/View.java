@@ -70,6 +70,10 @@ public abstract class View {
         controller.setNumberOfPlayers(numberOfPlayers);
     }
 
+    protected void setNumberOfHoles (int numberOfHoles) {
+        controller.setNumberOfHoles(numberOfHoles);
+    }
+
     /** initialize method to show top of discard pile
      * @return top of discard pile
      */
