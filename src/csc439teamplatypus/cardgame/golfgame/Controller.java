@@ -144,7 +144,7 @@ public class Controller {
      * @author Nathan Flanagan
      */
 
-    protected Card drawFromPile() {
+    protected Card drawFromDeck() {
         Card cardToReturn = deck.remove(rand.nextInt(deck.size()));
         cardToReturn.setCardFace(CardFace.UP);
         return cardToReturn;
@@ -280,7 +280,7 @@ public class Controller {
 
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < numberOfPlayers; j++) {
-                playerHands[j][i] = drawFromPile();
+                playerHands[j][i] = drawFromDeck();
                 playerHands[j][i].setCardFace(CardFace.DOWN);
             }
         }
@@ -298,6 +298,6 @@ public class Controller {
 
         // Card added to discard manually instead of through discard() to avoid incrementing numberOfPlayedTurns
         // since flipping a card over onto the discard pile at the beginning of the game is not the end of a turn
-        discard.add(drawFromPile());
+        discard.add(drawFromDeck());
     }
 }

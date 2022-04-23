@@ -7,51 +7,51 @@ public abstract class View {
 
     private final Controller controller;
 
-    /**
-     * Initializes view for controller
+    /** Creates a new View() with a default-constructed Controller to play golf
+     *
      */
     View() {
 
         this.controller = new Controller(this);
     }
 
-    /**uses player number at a given card index to discard the players hand at that index
-     * @param playerNumber
-     * @param cardIndex
+    /** Moves playerNumber's Card at cardIndex to the discard pile and moves to the next turn.
+     * @param playerNumber The player whose Card should be discarded
+     * @param cardIndex The index of the Card to be discarded
      */
     protected void discardHeldCard(int playerNumber, int cardIndex) {
 
         controller.discard(controller.getPlayerHand(playerNumber)[cardIndex]);
     }
 
-    /**handles case of unheld card being discarded
-     * @param cardToDiscard
+    /** Moves cardToDiscard to the discard pile and moves to the next turn
+     * @param cardToDiscard The card that should be discarded
      */
     protected void discardUnheldCard(Card cardToDiscard) {
 
         controller.discard(cardToDiscard);
     }
 
-    /**takes from the discard pile with the given player number and the card to replace
-     * @param playerNumber
-     * @param cardToReplace
+    /** Swaps playerNumber's Card at cardIndex with the top Card on the discard pile and moves to the next turn
+     * @param playerNumber The player whose Card should be discarded
+     * @param cardToReplace The Card that should be swapped with the top Card on the discard pile
      */
     protected void drawDiscard(int playerNumber, int cardToReplace) {
 
         controller.drawDiscard(playerNumber, cardToReplace);
     }
 
-    /** Takes from draw pile a card and passes it into controller
-     * @return Card from drawpile
+    /** Draws a Card from the deck and turns it face-up
+     * @return a Card from the deck
      */
-    protected Card drawFromPile() {
+    protected Card drawCardFromDeck() {
 
-        return controller.drawFromPile();
+        return controller.drawFromDeck();
     }
 
-    /** checks the players hand if they have a card face down
-     * @param playerNumber
-     * @return true if card is face down otherwise false
+    /** Checks whether a player has a face-down card in their hand
+     * @param playerNumber The player whose hand should be check
+     * @return true if playerNumber has a face-down card, false if not
      */
     protected boolean hasFaceDownCard(int playerNumber) {
 
@@ -62,60 +62,57 @@ public abstract class View {
         return false;
     }
 
-    /**initializes the number of players using controller and numOfPlayers
-     * @param numberOfPlayers
+    /** Sets the number of players
+     * @param numberOfPlayers The number of people who will be playing the game
      */
     protected void setNumberOfPlayers(int numberOfPlayers) {
 
         controller.setNumberOfPlayers(numberOfPlayers);
     }
 
-    protected void setNumberOfHoles (int numberOfHoles) {
-        controller.setNumberOfHoles(numberOfHoles);
-    }
-
-    /** initialize method to show top of discard pile
-     * @return top of discard pile
+    /** Returns the top Card on the discard pile without removing it
+     * @return the top Card on the discard pile
      */
     protected Card viewTopOfDiscardPile() {
 
         return controller.viewTopOfDiscardPile();
     }
 
-    /** gives us player number from the remainder of turns, number of players
-     * @return player number
+    /** Returns the player whose turn it is
+     * @return The current players index
      */
     protected int getCurrentPlayerNumber() {
 
         return controller.getNumberOfPlayedTurns() % controller.getNumberOfPlayers();
     }
 
-    /** gives us the current players hand
-     * @return playersCurrentHand
+    /** Returns the Cards in the current players hand
+     * @return the player's current hand as a Card[]
      */
     protected Card[] getCurrentPlayerHand() {
 
         return controller.getPlayerHand(getCurrentPlayerNumber());
     }
 
-    /** checks if cards are remaining
-     * @return true if there's cards remaining false otherwise
+    /** Checks whether there are Cards left in the deck
+     * @return true if there're Cards in the deck and false otherwise
      */
     protected boolean cardsRemaining() {
 
         return controller.cardsRemaining();
     }
 
-    /** flips a card based on the cardToFlip being passed
-     * @param playerNumber
-     * @param cardToFlip
+    /** Flips playerNumber's Card at index cardToFlip if it is face-down
+     * @param playerNumber The player whose Card should be flipped
+     * @param cardToFlip The Card that should be flipped
      */
     protected void flipCard(int playerNumber, int cardToFlip) {
 
         controller.flipCard(playerNumber, cardToFlip);
     }
 
-    /**initializes player hand based on controller
+    /** Deals all players 6 Cards, 2 of which are flipped face-up, and flips over one Card from the deck onto
+     * the discard pile
      *
      */
     protected void setPlayerHand() {
