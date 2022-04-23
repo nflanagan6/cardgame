@@ -2,6 +2,9 @@ package csc439teamplatypus.cardgame.golfgame;
 
 import csc439teamplatypus.cardgame.Card;
 import csc439teamplatypus.cardgame.CardFace;
+
+import java.util.LinkedList;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -129,6 +132,10 @@ public class CLIView extends View {
             printPlayerHand(hand);
             printTopOfDiscardPile();
 
+            System.out.print("Enter \"Scores\" to view the current scoreboard. Enter anything else to continue: ");
+            if (input.next().equals("Scores"))
+                printPlayerScores();
+
             boolean inputCompleted = false;
 
             while (!inputCompleted) {
@@ -206,6 +213,36 @@ public class CLIView extends View {
                 }
             }
         }
+    }
+
+    /** Prints the current players' scores in ascending order
+     *
+     */
+    protected void printPlayerScores() {
+
+        // Stores the index of each players' score so the ranking can be ordered while retaining whose score is whose
+        int[] playerRank = {0, 1, 2, 3, 4, 5};
+
+        int[] currentScores = getPlayerScores();
+
+        for (int i = 0; i < currentScores.length - 1; i++)
+            for (int j = i + i; j < currentScores.length; j++)
+                if (currentScores[i] > currentScores[j]) {
+
+                    int temp = currentScores[j];
+                    currentScores[j] = currentScores[i];
+                    currentScores[i] = temp;
+
+                    temp = playerRank[j];
+                    playerRank[j] = playerRank[i];
+                    playerRank[i] = playerRank[j];
+                }
+
+        System.out.println("Scoreboard: Hole " /* TODO - get current hole */ + " of "  /* TODO - get total number of holes */);
+
+        for (int i = 0; i < currentScores.length; i++)
+            System.out.println("Player " + playerRank[i] + ": " + currentScores[playerRank[i]]);
+        System.out.println();
     }
 
     /** Asks player to enter the number of people playing golf and starts the game

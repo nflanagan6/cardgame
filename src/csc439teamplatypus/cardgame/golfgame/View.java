@@ -94,6 +94,11 @@ public abstract class View {
         return controller.getPlayerHand(getCurrentPlayerNumber());
     }
 
+    protected int[] getPlayerScores() {
+
+        return controller.getPlayerScores();
+    }
+
     /** Checks whether there are Cards left in the deck
      * @return true if there're Cards in the deck and false otherwise
      */
