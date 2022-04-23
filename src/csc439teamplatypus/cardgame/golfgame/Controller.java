@@ -14,8 +14,10 @@ public class Controller {
     private ArrayList<Card> discard;
     private Card[][] playerHands;
     private int numberOfPlayers;
+    private int numberOfHoles;
     private final View view;
     private int numberOfPlayedTurns;
+    private int numberOfPlayedHoles;
     Random rand = new Random();
 
     /** Creates a new Controller
@@ -180,6 +182,10 @@ public class Controller {
         return numberOfPlayedTurns;
     }
 
+    protected int getNumberOfPlayedHoles() {
+        return numberOfPlayedHoles;
+    }
+
     /**
      * Returns the number of players in the game
      *
@@ -229,6 +235,16 @@ public class Controller {
                 createCardDeck(deck, 1);
             discard = new ArrayList<>();
             numberOfPlayedTurns = 0;
+        }
+    }
+
+    protected void setNumberOfHoles(int numberOfHoles) {
+        if (numberOfHoles != 9 || numberOfHoles != 18) {
+            throw new IllegalArgumentException("The number of holes entered must be either 9 or 18");
+        }
+        else {
+            this.numberOfHoles = numberOfHoles;
+            numberOfPlayedHoles = 0;
         }
     }
 
