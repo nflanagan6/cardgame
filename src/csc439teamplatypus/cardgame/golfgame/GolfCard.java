@@ -7,7 +7,7 @@ import csc439teamplatypus.cardgame.CardSuit;
 
 public class GolfCard extends Card {
 
-    /** Creates a new GolfCard,
+    /** Creates a new GolfCard
      *
      * @param suit   Tells what type of suit the Card object is
      * @param number Tells what number the Card object is

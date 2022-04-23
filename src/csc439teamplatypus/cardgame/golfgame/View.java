@@ -21,7 +21,7 @@ public abstract class View {
      */
     protected void discardHeldCard(int playerNumber, int cardIndex) {
 
-        controller.discard(controller.getPlayerHand(playerNumber)[cardIndex]);
+        controller.discard((GolfCard) controller.getPlayerHand(playerNumber)[cardIndex]);
     }
 
     /** Moves cardToDiscard to the discard pile and moves to the next turn
@@ -29,7 +29,7 @@ public abstract class View {
      */
     protected void discardUnheldCard(Card cardToDiscard) {
 
-        controller.discard(cardToDiscard);
+        controller.discard((GolfCard) cardToDiscard);
     }
 
     /** Swaps playerNumber's Card at cardIndex with the top Card on the discard pile and moves to the next turn

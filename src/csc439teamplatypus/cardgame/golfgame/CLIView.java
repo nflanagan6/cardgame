@@ -187,7 +187,7 @@ public class CLIView extends View {
      *
      * @param hand Card[] of Cards to display
      */
-    protected void printPlayerHand(Card hand[]) {
+    protected void printPlayerHand(Card[] hand) {
         for (int i = 0; i < hand.length; i++) {
             if (i == 3) {
                 System.out.print("\n");
