@@ -31,9 +31,9 @@ public class GolfCard extends Card {
             case NINE -> { return 9; }
             case TEN, JACK, QUEEN -> { return 10; }
             case KING -> { return 0; }
-            default -> { return 21; }           // TODO - what should the default return value be?
+            default -> { throw new IllegalArgumentException("Card " + getNumber() + " cannot be used in Golf"); }
         }
     }
 }
-//TODO - Remove for future testing from Card() javadocs
+
 //TODO - add TestGolfCard for getGolfValue() to check.

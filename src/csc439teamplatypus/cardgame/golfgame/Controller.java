@@ -23,7 +23,6 @@ public class Controller {
      *
      * @param view
      */
-
     protected Controller(View view) {
         this.view = view;
     }
@@ -34,7 +33,6 @@ public class Controller {
      * @return Whether the size of the deck is > 0
      * @author Nathan Flanagan
      */
-
     protected boolean cardsRemaining() {
         return deck.size() > 0;
     }
@@ -46,7 +44,6 @@ public class Controller {
      * @param numberOfDecks The number of standard decks that should be added to deck
      * @author Nathan Flanagan
      */
-
     private void createCardDeck(ArrayList<GolfCard> deck, int numberOfDecks) {
         for (int i = numberOfDecks; i > 0; i--) {
 
@@ -129,7 +126,6 @@ public class Controller {
      * @param playerNumber  The current player
      * @param cardToReplace The index of the card the current player wishes to replace
      */
-
     protected void drawDiscard(int playerNumber, int cardToReplace) {
         playerHands[playerNumber][cardToReplace].setCardFace(CardFace.UP);
         GolfCard temp = discard.remove(discard.size() - 1);
@@ -144,7 +140,6 @@ public class Controller {
      * @return A random card from the deck
      * @author Nathan Flanagan
      */
-
     protected GolfCard drawFromDeck() {
         GolfCard cardToReturn = deck.remove(rand.nextInt(deck.size()));
         cardToReturn.setCardFace(CardFace.UP);
@@ -159,7 +154,6 @@ public class Controller {
      * @param cardToFlip   The index of the Card that should be turned face-up
      * @author Nathan Flanagan
      */
-
     protected void flipCard(int playerNumber, int cardToFlip) {
         if (playerHands[playerNumber][cardToFlip].getCardFace() != CardFace.DOWN)
             throw new IllegalArgumentException("You can only flip over a card that is face-down");
@@ -170,6 +164,11 @@ public class Controller {
         }
     }
 
+    /** Returns the total number of holes that will be played in the game
+     *
+     * @return numberOfHoles
+     * @author Nathan Flanagan
+     */
     protected int getNumberOfHoles() {
         return numberOfHoles;
     }
@@ -180,11 +179,15 @@ public class Controller {
      * @return The number of completed turns
      * @author Nathan Flanagan
      */
-
     protected int getNumberOfPlayedTurns() {
         return numberOfPlayedTurns;
     }
 
+    /** Returns the number of holes that have already been played
+     *
+     * @return numberOfPlayedHoles
+     * @author Ethan Hunt
+     */
     protected int getNumberOfPlayedHoles() {
         return numberOfPlayedHoles;
     }
@@ -195,7 +198,6 @@ public class Controller {
      * @return The number of players in the game
      * @author Nathan Flanagan
      */
-
     protected int getNumberOfPlayers() {
         return numberOfPlayers;
     }
@@ -207,7 +209,6 @@ public class Controller {
      * @return The player's hand
      * @author Nathan Flanagan
      */
-
     protected Card[] getPlayerHand(int playerNumber) {
         if (playerNumber >= playerHands.length || playerNumber < 0) {
             throw new IndexOutOfBoundsException();
@@ -237,7 +238,7 @@ public class Controller {
         }
 
         return playerScores;
-    }       //TODO - add tests for getPlayerScores()
+    }
 
     /**
      * Accepts the number of players (must be between 2 and 7, inclusively) and instantiates deck, discard,
@@ -246,7 +247,6 @@ public class Controller {
      * @param numberOfPlayers The number of people playing Golf. Must be inclusively between 2 and 7
      * @author Nathan Flanagan
      */
-
     protected void setNumberOfPlayers(int numberOfPlayers) {
         if (numberOfPlayers < 2 || numberOfPlayers > 7) {
             throw new IllegalArgumentException("The number of players must be between 2 and 7 (inclusively)");
@@ -280,7 +280,6 @@ public class Controller {
      * @return The top Card on the discard pile
      * @author Nathan Flanagan
      */
-
     protected Card viewTopOfDiscardPile() {
 
         return discard.get(discard.size() - 1);
@@ -325,7 +324,6 @@ public class Controller {
      * @return the Controller's deck
      * @author Nathan Flanagan
      */
-
     protected ArrayList<GolfCard> getDeck() {
         return deck;
     }

@@ -7,15 +7,14 @@ package csc439teamplatypus.cardgame;
  */
 
 public class Card {
-    /**
-     * Two private variables for CardSuit and CardNumber for the Card object to use in creation
-     */
+    /** Stores the Card's suit */
     private CardSuit suit;
+    /** The value of the Card. Face cards use the name (ex: King is KING, not a numerical value) */
     private CardNumber number;
+    /** Whether the card is face-up or face-down */
     private CardFace face;
 
-    /**
-     * This is the default call for the Card object that requires these two parameters to be input for future testing
+    /** Creates a new Card
      * @param suit Tells what type of suit the Card object is
      * @param number Tells what number the Card object is
      */
@@ -25,26 +24,35 @@ public class Card {
         this.face = face;
     }
 
-    /**
-     * Two simple get methods to return the cards suit and number
-     */
+    /** Returns the Card's suit
+     * @return suit
+     * */
     public CardSuit getSuit() {
         return suit;
     }
-
+    /** Returns the card's number
+     * @return number
+     * */
     public CardNumber getNumber() {
         return number;
     }
 
+    /** Returns the Card's face
+     * @return face
+     */
     public CardFace getCardFace() { return face; }
 
-
+    /** Sets the value of the Card's face
+     *
+     * @param face Whether the card is face-up (CardFace.UP) or face-down (CardFace.DOWN)
+     */
     public void setCardFace(CardFace face) {
         this.face = face;
     }
 
-    /**
-     * Two methods that can be called on inside of tests to check if the created card is a red card or a black card.
+    /** Returns whether a Card's suit is red
+     * @param suit
+     * @return Whether the suit is red
      */
     public boolean isRed(CardSuit suit) {
         switch(suit) {
@@ -55,6 +63,10 @@ public class Card {
         }
     }
 
+    /** Returns whether a Card's suit is black
+     * @param suit
+     * @return Whether the suit is black
+     */
     public boolean isBlack(CardSuit suit) {
         switch(suit) {
             case CLUB: case SPADE:

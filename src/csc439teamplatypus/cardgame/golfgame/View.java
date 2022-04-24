@@ -94,16 +94,28 @@ public abstract class View {
         return controller.getPlayerHand(getCurrentPlayerNumber());
     }
 
+    /** Returns each player's score as an int[]
+     *
+     * @return An int[] containing each player's score
+     */
     protected int[] getPlayerScores() {
 
         return controller.getPlayerScores();
     }
 
+    /** Returns the total number of holes that will be played
+     *
+     * @return the total number of holes in the game
+     */
     protected int getNumberOfHoles() {
 
         return controller.getNumberOfHoles();
     }
 
+    /** Returns the total number of holes that have already been played
+     *
+     * @return the number of played holes
+     */
     protected int getNumberOfPlayedHoles() {
 
         return controller.getNumberOfPlayedHoles();

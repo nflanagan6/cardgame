@@ -25,7 +25,7 @@ public class TestController {
     public void create52CardDeck() {
 
         testingController.setNumberOfPlayers(4);
-        ArrayList<Card> testingDeck = testingController.getDeck();
+        ArrayList<GolfCard> testingDeck = testingController.getDeck();
 
         Truth.assertThat(testingDeck).hasSize(52);
     }
@@ -34,7 +34,7 @@ public class TestController {
     public void create104CardDeck() {
 
         testingController.setNumberOfPlayers(5);
-        ArrayList<Card> testingDeck = testingController.getDeck();
+        ArrayList<GolfCard> testingDeck = testingController.getDeck();
 
         Truth.assertThat(testingDeck).hasSize(104);
     }
@@ -43,7 +43,7 @@ public class TestController {
     public void discardTopCardInDeck() {
 
         testingController.setNumberOfPlayers(3);
-        Card topCard = testingController.drawFromDeck();
+        GolfCard topCard = testingController.drawFromDeck();
         testingController.discard(topCard);
 
         Truth.assertThat(topCard).isEqualTo(testingController.viewTopOfDiscardPile());
@@ -129,5 +129,29 @@ public class TestController {
         Truth.assertThat(testingController.getDeck().size()).isEqualTo(61);
         Truth.assertThat(testingController.viewTopOfDiscardPile()).isNotNull();
         Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo(0);
+    }
+
+    @Test
+    void getPlayerScores_calculatesScoresCorrectly() {
+
+        testingController.setNumberOfPlayers(4);
+        testingController.setPlayerHands();
+
+        for (int i = 0; i < testingController.getNumberOfPlayers(); i++) {
+            GolfCard[] hand = (GolfCard[]) testingController.getPlayerHand(i);
+
+            int playerScore = 0;
+
+            for (int j = 0, k = 3; j < 3 && k < 6; j++, k++) {
+
+                if (!(hand[j].getCardFace() == CardFace.UP && hand[k].getCardFace() == CardFace.UP
+                && hand[j].getNumber() == hand[k].getNumber())) {
+                    playerScore += hand[j].getCardFace() == CardFace.UP ? hand[j].getGolfValue() : 0;
+                    playerScore += hand[k].getCardFace() == CardFace.UP ? hand[k].getGolfValue() : 0;
+                }
+            }
+
+            Truth.assertThat(testingController.getPlayerScores()[i]).isEqualTo(playerScore);
+        }
     }
 }
