@@ -238,7 +238,8 @@ public class CLIView extends View {
                     playerRank[i] = playerRank[j];
                 }
 
-        System.out.println("Scoreboard: Hole " /* TODO - get current hole */ + " of "  /* TODO - get total number of holes */);
+        System.out.println("Scoreboard: Hole " + (getNumberOfHoles() - getNumberOfPlayedHoles())
+                + " of " + getNumberOfHoles());
 
         for (int i = 0; i < currentScores.length; i++)
             System.out.println("Player " + playerRank[i] + ": " + currentScores[playerRank[i]]);

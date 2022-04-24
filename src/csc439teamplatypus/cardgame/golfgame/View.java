@@ -99,6 +99,16 @@ public abstract class View {
         return controller.getPlayerScores();
     }
 
+    protected int getNumberOfHoles() {
+
+        return controller.getNumberOfHoles();
+    }
+
+    protected int getNumberOfPlayedHoles() {
+
+        return controller.getNumberOfPlayedHoles();
+    }
+
     /** Checks whether there are Cards left in the deck
      * @return true if there're Cards in the deck and false otherwise
      */
@@ -122,5 +132,10 @@ public abstract class View {
      */
     protected void setPlayerHand() {
         controller.setPlayerHands();
+    }
+
+    protected void setNumberOfHoles(int numberOfHoles) {
+
+        controller.setNumberOfHoles(numberOfHoles);
     }
 }

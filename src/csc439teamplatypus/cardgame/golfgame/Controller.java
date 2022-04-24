@@ -170,6 +170,10 @@ public class Controller {
         }
     }
 
+    protected int getNumberOfHoles() {
+        return numberOfHoles;
+    }
+
     /**
      * Returns the number of turns that have been completed so far in the game
      *
