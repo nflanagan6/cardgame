@@ -238,7 +238,7 @@ public class CLIView extends View {
                     playerRank[i] = playerRank[j];
                 }
 
-        System.out.println("Scoreboard: Hole " + (getNumberOfHoles() - getNumberOfPlayedHoles())
+        System.out.println("Scoreboard: Hole " + (getNumberOfPlayedHoles() + 1)
                 + " of " + getNumberOfHoles());
 
         for (int i = 0; i < currentScores.length; i++)

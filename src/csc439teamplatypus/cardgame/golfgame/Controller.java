@@ -12,6 +12,7 @@ public class Controller {
     private ArrayList<GolfCard> deck;
     private ArrayList<GolfCard> discard;
     private GolfCard[][] playerHands;
+    private int[] playerScores;
     private int numberOfPlayers;
     private int numberOfHoles;
     private final View view;
@@ -222,22 +223,25 @@ public class Controller {
      * @return int array of current scores
      */
     protected int[] getPlayerScores() {
-        int[] playerScores = new int[numberOfPlayers];
+        int[] updatedPlayerScores = new int[numberOfPlayers];
+
+        System.arraycopy(playerScores, 0, updatedPlayerScores, 0, playerScores.length);
 
         for (int i = 0; i < numberOfPlayers; i++) {
-            int playerScore = 0;
+            int curretHoleScore = 0;
             for (int x = 0, y = 3; x <= 2 && y <= 5; x++, y++) {
                 if (!(playerHands[i][x].getCardFace() == CardFace.UP && playerHands[i][y].getCardFace() == CardFace.UP
                 && playerHands[i][x].getNumber() == playerHands[i][y].getNumber())) {
-                    playerScore += playerHands[i][x].getCardFace() == CardFace.UP ? playerHands[i][x].getGolfValue() : 0;
-                    playerScore += playerHands[i][y].getCardFace() == CardFace.UP ? playerHands[i][y].getGolfValue() : 0;
+                    curretHoleScore += playerHands[i][x].getCardFace() == CardFace.UP ? playerHands[i][x].getGolfValue() : 0;
+                    curretHoleScore += playerHands
+                            [i][y].getCardFace() == CardFace.UP ? playerHands[i][y].getGolfValue() : 0;
                 }
             }
 
-            playerScores[i] = playerScore;
+            updatedPlayerScores[i] += curretHoleScore;
         }
 
-        return playerScores;
+        return updatedPlayerScores;
     }
 
     /**
@@ -261,6 +265,7 @@ public class Controller {
                 createCardDeck(deck, 1);
             discard = new ArrayList<>();
             numberOfPlayedTurns = 0;
+            playerScores = new int[numberOfPlayers];
         }
     }
 
