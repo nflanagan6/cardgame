@@ -47,20 +47,10 @@ public class Card {
      * Two methods that can be called on inside of tests to check if the created card is a red card or a black card.
      */
     public boolean isRed(CardSuit suit) {
-        switch(suit) {
-            case DIAMOND: case HEART:
-                return true;
-            default:
-                return false;
-        }
+        return suit==CardSuit.HEART||suit==CardSuit.DIAMOND;
     }
 
     public boolean isBlack(CardSuit suit) {
-        switch(suit) {
-            case CLUB: case SPADE:
-                return true;
-            default:
-                return false;
-        }
+        return suit==CardSuit.CLUB||suit==CardSuit.SPADE;
     }
 }
