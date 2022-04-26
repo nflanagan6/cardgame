@@ -7,12 +7,12 @@ import csc439teamplatypus.cardgame.CardSuit;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 public class Controller {
 
-    private ArrayList<Card> deck;
-    private ArrayList<Card> discard;
-    private Card[][] playerHands;
+    private ArrayList<GolfCard> deck;
+    private ArrayList<GolfCard> discard;
+    private GolfCard[][] playerHands;
+    private int[] playerScores;
     private int numberOfPlayers;
     private int numberOfHoles;
     private final View view;
@@ -24,7 +24,6 @@ public class Controller {
      *
      * @param view
      */
-
     protected Controller(View view) {
         this.view = view;
     }
@@ -35,7 +34,6 @@ public class Controller {
      * @return Whether the size of the deck is > 0
      * @author Nathan Flanagan
      */
-
     protected boolean cardsRemaining() {
         return deck.size() > 0;
     }
@@ -47,65 +45,64 @@ public class Controller {
      * @param numberOfDecks The number of standard decks that should be added to deck
      * @author Nathan Flanagan
      */
-
-    private void createCardDeck(ArrayList<Card> deck, int numberOfDecks) {
+    private void createCardDeck(ArrayList<GolfCard> deck, int numberOfDecks) {
         for (int i = numberOfDecks; i > 0; i--) {
 
-            deck.add(new Card(CardSuit.CLUB, CardNumber.TWO, CardFace.DOWN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.THREE, CardFace.DOWN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.FOUR, CardFace.DOWN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.FIVE, CardFace.DOWN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.SIX, CardFace.DOWN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.SEVEN, CardFace.DOWN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.EIGHT, CardFace.DOWN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.NINE, CardFace.DOWN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.TEN, CardFace.DOWN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.JACK, CardFace.DOWN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.QUEEN, CardFace.DOWN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.KING, CardFace.DOWN));
-            deck.add(new Card(CardSuit.CLUB, CardNumber.ACE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.CLUB, CardNumber.TWO, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.CLUB, CardNumber.THREE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.CLUB, CardNumber.FOUR, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.CLUB, CardNumber.FIVE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.CLUB, CardNumber.SIX, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.CLUB, CardNumber.SEVEN, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.CLUB, CardNumber.EIGHT, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.CLUB, CardNumber.NINE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.CLUB, CardNumber.TEN, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.CLUB, CardNumber.JACK, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.CLUB, CardNumber.QUEEN, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.CLUB, CardNumber.KING, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.CLUB, CardNumber.ACE, CardFace.DOWN));
 
-            deck.add(new Card(CardSuit.SPADE, CardNumber.TWO, CardFace.DOWN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.THREE, CardFace.DOWN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.FOUR, CardFace.DOWN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.FIVE, CardFace.DOWN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.SIX, CardFace.DOWN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.SEVEN, CardFace.DOWN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.EIGHT, CardFace.DOWN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.NINE, CardFace.DOWN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.TEN, CardFace.DOWN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.JACK, CardFace.DOWN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.QUEEN, CardFace.DOWN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.KING, CardFace.DOWN));
-            deck.add(new Card(CardSuit.SPADE, CardNumber.ACE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.SPADE, CardNumber.TWO, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.SPADE, CardNumber.THREE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.SPADE, CardNumber.FOUR, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.SPADE, CardNumber.FIVE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.SPADE, CardNumber.SIX, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.SPADE, CardNumber.SEVEN, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.SPADE, CardNumber.EIGHT, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.SPADE, CardNumber.NINE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.SPADE, CardNumber.TEN, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.SPADE, CardNumber.JACK, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.SPADE, CardNumber.QUEEN, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.SPADE, CardNumber.KING, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.SPADE, CardNumber.ACE, CardFace.DOWN));
 
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.TWO, CardFace.DOWN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.THREE, CardFace.DOWN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.FOUR, CardFace.DOWN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.FIVE, CardFace.DOWN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.SIX, CardFace.DOWN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.SEVEN, CardFace.DOWN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.EIGHT, CardFace.DOWN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.NINE, CardFace.DOWN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.TEN, CardFace.DOWN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.JACK, CardFace.DOWN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.QUEEN, CardFace.DOWN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.KING, CardFace.DOWN));
-            deck.add(new Card(CardSuit.DIAMOND, CardNumber.ACE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.DIAMOND, CardNumber.TWO, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.DIAMOND, CardNumber.THREE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.DIAMOND, CardNumber.FOUR, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.DIAMOND, CardNumber.FIVE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.DIAMOND, CardNumber.SIX, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.DIAMOND, CardNumber.SEVEN, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.DIAMOND, CardNumber.EIGHT, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.DIAMOND, CardNumber.NINE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.DIAMOND, CardNumber.TEN, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.DIAMOND, CardNumber.JACK, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.DIAMOND, CardNumber.QUEEN, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.DIAMOND, CardNumber.KING, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.DIAMOND, CardNumber.ACE, CardFace.DOWN));
 
-            deck.add(new Card(CardSuit.HEART, CardNumber.TWO, CardFace.DOWN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.THREE, CardFace.DOWN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.FOUR, CardFace.DOWN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.FIVE, CardFace.DOWN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.SIX, CardFace.DOWN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.SEVEN, CardFace.DOWN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.EIGHT, CardFace.DOWN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.NINE, CardFace.DOWN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.TEN, CardFace.DOWN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.JACK, CardFace.DOWN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.QUEEN, CardFace.DOWN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.KING, CardFace.DOWN));
-            deck.add(new Card(CardSuit.HEART, CardNumber.ACE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.HEART, CardNumber.TWO, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.HEART, CardNumber.THREE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.HEART, CardNumber.FOUR, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.HEART, CardNumber.FIVE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.HEART, CardNumber.SIX, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.HEART, CardNumber.SEVEN, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.HEART, CardNumber.EIGHT, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.HEART, CardNumber.NINE, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.HEART, CardNumber.TEN, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.HEART, CardNumber.JACK, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.HEART, CardNumber.QUEEN, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.HEART, CardNumber.KING, CardFace.DOWN));
+            deck.add(new GolfCard(CardSuit.HEART, CardNumber.ACE, CardFace.DOWN));
         }
     }
 
@@ -117,7 +114,7 @@ public class Controller {
      * @author Nathan Flanagan
      */
 
-    protected void discard(Card cardToDiscard) {
+    protected void discard(GolfCard cardToDiscard) {
         cardToDiscard.setCardFace(CardFace.UP);
         discard.add(cardToDiscard);
         numberOfPlayedTurns++;
@@ -130,10 +127,9 @@ public class Controller {
      * @param playerNumber  The current player
      * @param cardToReplace The index of the card the current player wishes to replace
      */
-
     protected void drawDiscard(int playerNumber, int cardToReplace) {
         playerHands[playerNumber][cardToReplace].setCardFace(CardFace.UP);
-        Card temp = discard.remove(discard.size() - 1);
+        GolfCard temp = discard.remove(discard.size() - 1);
         discard.add(playerHands[playerNumber][cardToReplace]);
         playerHands[playerNumber][cardToReplace] = temp;
         numberOfPlayedTurns++;
@@ -145,9 +141,8 @@ public class Controller {
      * @return A random card from the deck
      * @author Nathan Flanagan
      */
-
-    protected Card drawFromDeck() {
-        Card cardToReturn = deck.remove(rand.nextInt(deck.size()));
+    protected GolfCard drawFromDeck() {
+        GolfCard cardToReturn = deck.remove(rand.nextInt(deck.size()));
         cardToReturn.setCardFace(CardFace.UP);
         return cardToReturn;
     }
@@ -160,7 +155,6 @@ public class Controller {
      * @param cardToFlip   The index of the Card that should be turned face-up
      * @author Nathan Flanagan
      */
-
     protected void flipCard(int playerNumber, int cardToFlip) {
         if (playerHands[playerNumber][cardToFlip].getCardFace() != CardFace.DOWN)
             throw new IllegalArgumentException("You can only flip over a card that is face-down");
@@ -171,17 +165,30 @@ public class Controller {
         }
     }
 
+    /** Returns the total number of holes that will be played in the game
+     *
+     * @return numberOfHoles
+     * @author Nathan Flanagan
+     */
+    protected int getNumberOfHoles() {
+        return numberOfHoles;
+    }
+
     /**
      * Returns the number of turns that have been completed so far in the game
      *
      * @return The number of completed turns
      * @author Nathan Flanagan
      */
-
     protected int getNumberOfPlayedTurns() {
         return numberOfPlayedTurns;
     }
 
+    /** Returns the number of holes that have already been played
+     *
+     * @return numberOfPlayedHoles
+     * @author Ethan Hunt
+     */
     protected int getNumberOfPlayedHoles() {
         return numberOfPlayedHoles;
     }
@@ -192,7 +199,6 @@ public class Controller {
      * @return The number of players in the game
      * @author Nathan Flanagan
      */
-
     protected int getNumberOfPlayers() {
         return numberOfPlayers;
     }
@@ -204,13 +210,38 @@ public class Controller {
      * @return The player's hand
      * @author Nathan Flanagan
      */
-
     protected Card[] getPlayerHand(int playerNumber) {
         if (playerNumber >= playerHands.length || playerNumber < 0) {
             throw new IndexOutOfBoundsException();
         }
 
         return playerHands[playerNumber];
+    }
+
+    /** Returns an int[] containing all players' current scores
+     *
+     * @return int array of current scores
+     */
+    protected int[] getPlayerScores() {
+        int[] updatedPlayerScores = new int[numberOfPlayers];
+
+        System.arraycopy(playerScores, 0, updatedPlayerScores, 0, playerScores.length);
+
+        for (int i = 0; i < numberOfPlayers; i++) {
+            int curretHoleScore = 0;
+            for (int x = 0, y = 3; x <= 2 && y <= 5; x++, y++) {
+                if (!(playerHands[i][x].getCardFace() == CardFace.UP && playerHands[i][y].getCardFace() == CardFace.UP
+                && playerHands[i][x].getNumber() == playerHands[i][y].getNumber())) {
+                    curretHoleScore += playerHands[i][x].getCardFace() == CardFace.UP ? playerHands[i][x].getGolfValue() : 0;
+                    curretHoleScore += playerHands
+                            [i][y].getCardFace() == CardFace.UP ? playerHands[i][y].getGolfValue() : 0;
+                }
+            }
+
+            updatedPlayerScores[i] += curretHoleScore;
+        }
+
+        return updatedPlayerScores;
     }
 
     /**
@@ -220,14 +251,13 @@ public class Controller {
      * @param numberOfPlayers The number of people playing Golf. Must be inclusively between 2 and 7
      * @author Nathan Flanagan
      */
-
     protected void setNumberOfPlayers(int numberOfPlayers) {
         if (numberOfPlayers < 2 || numberOfPlayers > 7) {
             throw new IllegalArgumentException("The number of players must be between 2 and 7 (inclusively)");
         } else {
 
             this.numberOfPlayers = numberOfPlayers;
-            playerHands = new Card[numberOfPlayers][6];
+            playerHands = new GolfCard[numberOfPlayers][6];
             deck = new ArrayList<>();
             if (numberOfPlayers > 4)
                 createCardDeck(deck, 2);
@@ -235,6 +265,7 @@ public class Controller {
                 createCardDeck(deck, 1);
             discard = new ArrayList<>();
             numberOfPlayedTurns = 0;
+            playerScores = new int[numberOfPlayers];
         }
     }
 
@@ -254,7 +285,6 @@ public class Controller {
      * @return The top Card on the discard pile
      * @author Nathan Flanagan
      */
-
     protected Card viewTopOfDiscardPile() {
 
         return discard.get(discard.size() - 1);
@@ -299,8 +329,7 @@ public class Controller {
      * @return the Controller's deck
      * @author Nathan Flanagan
      */
-
-    protected ArrayList<Card> getDeck() {
+    protected ArrayList<GolfCard> getDeck() {
         return deck;
     }
 

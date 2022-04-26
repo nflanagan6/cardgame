@@ -21,7 +21,7 @@ public abstract class View {
      */
     protected void discardHeldCard(int playerNumber, int cardIndex) {
 
-        controller.discard(controller.getPlayerHand(playerNumber)[cardIndex]);
+        controller.discard((GolfCard) controller.getPlayerHand(playerNumber)[cardIndex]);
     }
 
     /** Moves cardToDiscard to the discard pile and moves to the next turn
@@ -29,7 +29,7 @@ public abstract class View {
      */
     protected void discardUnheldCard(Card cardToDiscard) {
 
-        controller.discard(cardToDiscard);
+        controller.discard((GolfCard) cardToDiscard);
     }
 
     /** Swaps playerNumber's Card at cardIndex with the top Card on the discard pile and moves to the next turn
@@ -94,6 +94,33 @@ public abstract class View {
         return controller.getPlayerHand(getCurrentPlayerNumber());
     }
 
+    /** Returns each player's score as an int[]
+     *
+     * @return An int[] containing each player's score
+     */
+    protected int[] getPlayerScores() {
+
+        return controller.getPlayerScores();
+    }
+
+    /** Returns the total number of holes that will be played
+     *
+     * @return the total number of holes in the game
+     */
+    protected int getNumberOfHoles() {
+
+        return controller.getNumberOfHoles();
+    }
+
+    /** Returns the total number of holes that have already been played
+     *
+     * @return the number of played holes
+     */
+    protected int getNumberOfPlayedHoles() {
+
+        return controller.getNumberOfPlayedHoles();
+    }
+
     /** Checks whether there are Cards left in the deck
      * @return true if there're Cards in the deck and false otherwise
      */
@@ -117,5 +144,10 @@ public abstract class View {
      */
     protected void setPlayerHand() {
         controller.setPlayerHands();
+    }
+
+    protected void setNumberOfHoles(int numberOfHoles) {
+
+        controller.setNumberOfHoles(numberOfHoles);
     }
 }
