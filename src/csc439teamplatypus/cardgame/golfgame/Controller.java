@@ -304,4 +304,10 @@ public class Controller {
         return deck;
     }
 
+    /**Increases number of holes played by one, used to track amount of turns(holes) played
+     *
+     */
+    public void incHoles() {
+        numberOfPlayedHoles++;
+    }
 }

@@ -12,6 +12,7 @@ public class CLIView extends View {
     public CLIView() {
         this.input = new Scanner(System.in);
     }
+    private int numOfPlayers;
 
     public int promptForDiscard() {
 
@@ -155,6 +156,8 @@ public class CLIView extends View {
                 }
             }
             System.out.println("\n");
+            setNumberOfPlayers(numOfPlayers);
+            setPlayerHand();
             nextTurn();
         }
         else {

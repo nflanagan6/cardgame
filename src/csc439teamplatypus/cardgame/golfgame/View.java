@@ -118,4 +118,9 @@ public abstract class View {
     protected void setPlayerHand() {
         controller.setPlayerHands();
     }
+
+    /**Increments number of holes
+     *
+     */
+    protected void incNumberOfPlayedHoles() {controller.incHoles();}
 }
