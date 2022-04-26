@@ -299,7 +299,8 @@ public class Controller {
      * @return the Controller's deck
      * @author Nathan Flanagan
      */
-    protected ArrayList<GolfCard> getDeck() {
+
+    protected ArrayList<Card> getDeck() {
         return deck;
     }
 }
