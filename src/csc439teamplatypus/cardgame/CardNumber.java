@@ -1,5 +1,9 @@
 package csc439teamplatypus.cardgame;
 
+/**
+ * Handles all possible card variations minus the suit in the form of an enum.
+ * From two to ace.
+ */
 public enum CardNumber {
     TWO,
     THREE,
