@@ -110,6 +110,7 @@ public class TestController {
         testingController.setNumberOfPlayers(3);
 
         testingController.setPlayerHands();
+        ArrayList<Card> testingDeck = testingController.getDeck();
         for (int i = 0; i < testingController.getNumberOfPlayers(); i++) {
             Truth.assertThat(testingController.getPlayerHand(i).length).isEqualTo(6);
         }
@@ -123,11 +124,13 @@ public class TestController {
         testingController.setNumberOfPlayers(7);
 
         testingController.setPlayerHands();
+        ArrayList<Card> testingDeck = testingController.getDeck();
         for (int i = 0; i < testingController.getNumberOfPlayers(); i++) {
             Truth.assertThat(testingController.getPlayerHand(i).length).isEqualTo(6);
         }
         Truth.assertThat(testingController.getDeck().size()).isEqualTo(61);
         Truth.assertThat(testingController.viewTopOfDiscardPile()).isNotNull();
         Truth.assertThat(testingController.getNumberOfPlayedTurns()).isEqualTo(0);
+        Truth.assertThat(testingController.cardShuffle()).isNotEqualTo(testingDeck);
     }
 }

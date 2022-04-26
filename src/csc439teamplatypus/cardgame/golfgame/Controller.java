@@ -303,5 +303,39 @@ public class Controller {
     protected ArrayList<Card> getDeck() {
         return deck;
     }
+    /**
+     * Takes the deck after the turn is over and shuffles it and then deals a new hand for the players
+     * @return shuffle is the newly formed deck
+     */
+    protected  ArrayList<Card> cardShuffle() {
+        discard.clear();
+        int count=0;
+        int deckCount=0;
+        ArrayList<Card> shuffle= new ArrayList<>();
+        if (numberOfPlayers > 4) {
+            createCardDeck(shuffle, 2);
+            deckCount = 104;
+        }
+        else{
+            createCardDeck(shuffle, 1);
+            deckCount=52;
+        }
+        for (int i=0;i<deckCount;i++){
+            if(deckCount==52){
+                count=i+rand.nextInt(52-i);
+                Card swap= shuffle.get(count);
+                shuffle.set(count, deck.get(i));
+                shuffle.set(i, swap);
+            }
+            else {
+                count=i+rand.nextInt(104-i);
+                Card swap= shuffle.get(count);
+                shuffle.set(count, shuffle.get(i));
+                shuffle.set(i, swap);
+            }
+        }
 
+        setPlayerHands();
+        return shuffle;
+    }
 }
