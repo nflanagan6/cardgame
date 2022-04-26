@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class CLIView extends View {
 
     Scanner input;
+    private int numOfPlayers;
 
     public CLIView() {
         this.input = new Scanner(System.in);
@@ -163,6 +164,10 @@ public class CLIView extends View {
             }
             System.out.println("\n");
             nextTurn();
+        }
+        else if(cardsRemaining()){
+            setNumberOfPlayers(numOfPlayers);
+            setPlayerHand();
         }
         else {
             System.out.println("There are no more cards remaining");
