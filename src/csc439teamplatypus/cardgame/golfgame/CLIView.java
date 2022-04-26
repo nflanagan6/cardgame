@@ -187,7 +187,15 @@ public class CLIView extends View {
         System.out.println("\tYou have chosen " + numberOfPlayers + " players!\n");
         setNumberOfPlayers(numberOfPlayers);
         setPlayerHand();
-        nextTurn();
+    }
+
+    /**
+     * Setter method for the input number of holes.
+     * @param numberOfHoles - The number of holes that will be played
+     */
+    protected void setNumOfHoles(int numberOfHoles) {
+        System.out.println("\tYou have chosen " + numberOfHoles + " holes!\n");
+        setNumberOfHoles(numberOfHoles);
     }
 
     /** Prints each Card's suit and number in a Card[].
@@ -250,11 +258,16 @@ public class CLIView extends View {
      *
      */
     public void startGame() {
-        System.out.println("\t\tWelcome to Golf!");
+        System.out.println("\t\t\tWelcome to Golf!");
         System.out.println("\tHow many people will be playing?");
         System.out.print("Please enter a number between 2 and 7: ");
         int numOfPlayers = Integer.parseInt(input.next());
         setNumOfPlayers(numOfPlayers);
+        System.out.println("\t\tHow many holes would you like to play?");
+        System.out.print("Please enter 9 or 18: ");
+        int numOfHoles = Integer.parseInt(input.next());
+        setNumOfHoles(numOfHoles);
+        nextTurn();
     }
 
     /** Compares user's input on their turn to the key command "QUIT" to give ability to quit game
