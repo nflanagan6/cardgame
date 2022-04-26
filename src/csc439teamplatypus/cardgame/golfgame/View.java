@@ -123,4 +123,13 @@ public abstract class View {
      *
      */
     protected void incNumberOfPlayedHoles() {controller.incHoles();}
+
+    /**Takes numberOfHoles and sets the number of holes for the game to be played.
+     *
+     * @param numberOfHoles number of turns to be played
+     */
+    protected void setNumberOfHoles(int numberOfHoles) {
+
+        controller.setNumberOfHoles(numberOfHoles);
+    }
 }
