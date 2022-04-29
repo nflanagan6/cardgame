@@ -232,7 +232,7 @@ public class Controller {
             int curretHoleScore = 0;
             for (int x = 0, y = 3; x <= 2 && y <= 5; x++, y++) {
                 if (!(playerHands[i][x].getCardFace() == CardFace.UP && playerHands[i][y].getCardFace() == CardFace.UP
-                && playerHands[i][x].getNumber() == playerHands[i][y].getNumber())) {
+                        && playerHands[i][x].getNumber() == playerHands[i][y].getNumber())) {
                     curretHoleScore += playerHands[i][x].getCardFace() == CardFace.UP ? playerHands[i][x].getGolfValue() : 0;
                     curretHoleScore += playerHands
                             [i][y].getCardFace() == CardFace.UP ? playerHands[i][y].getGolfValue() : 0;
@@ -368,4 +368,11 @@ public class Controller {
         return deck;
     }
 
+    /**
+     * Increments the holes and resets the number of played turns.
+     */
+    protected void incHole() {
+        numberOfPlayedHoles++;
+        numberOfPlayedTurns = 0;
+    }
 }

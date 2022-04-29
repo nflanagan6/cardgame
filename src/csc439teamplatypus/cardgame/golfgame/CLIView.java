@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 
 public class CLIView extends View {
-
+    private int numOfPlayers;
     Scanner input;
 
     public CLIView() {
@@ -60,7 +60,7 @@ public class CLIView extends View {
                 flipCard(getCurrentPlayerNumber(), cardToFlip);
                 inputCompleted = true;
                 System.out.println("You turned over a " + getCurrentPlayerHand()[cardToFlip].getNumber()
-                + " of " + getCurrentPlayerHand()[cardToFlip].getSuit() + "s");
+                        + " of " + getCurrentPlayerHand()[cardToFlip].getSuit() + "s");
                 System.out.println("Your new hand is: ");
                 printPlayerHand(getCurrentPlayerHand());
             } else {
@@ -167,6 +167,9 @@ public class CLIView extends View {
         else {
             updateScores();
             printPlayerScores();
+            nextHole();
+            setNumOfPlayers(numOfPlayers);
+            setPlayerHand();
             nextTurn();
         }
     }
@@ -262,7 +265,7 @@ public class CLIView extends View {
         System.out.println("\t\t\tWelcome to Golf!");
         System.out.println("\tHow many people will be playing?");
         System.out.print("Please enter a number between 2 and 7: ");
-        int numOfPlayers = Integer.parseInt(input.next());
+        numOfPlayers = Integer.parseInt(input.next());
         setNumOfPlayers(numOfPlayers);
         System.out.println("\t\tHow many holes would you like to play?");
         System.out.print("Please enter 9 or 18: ");
