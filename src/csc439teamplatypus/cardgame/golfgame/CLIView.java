@@ -264,7 +264,7 @@ public class CLIView extends View {
             System.out.println("Player " + playerRank[i] + ": " + currentScores[playerRank[i]]);
         System.out.println();
 
-        if (getNumberOfPlayedHoles() == getNumberOfHoles() - 1 && checkCards()) {
+        if (getNumberOfPlayedHoles() == getNumberOfHoles() - 1 && (checkCards() || !cardsRemaining())) {
             for (int i = 0; i < currentScores.length; i++) {
                 if (playerRank[i] == 1) {
                     System.out.println("The winner of the game is: " + playerRank[i]);
