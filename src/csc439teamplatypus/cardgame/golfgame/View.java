@@ -11,7 +11,6 @@ public abstract class View {
      *
      */
     View() {
-
         this.controller = new Controller(this);
     }
 
@@ -20,7 +19,6 @@ public abstract class View {
      * @param cardIndex The index of the Card to be discarded
      */
     protected void discardHeldCard(int playerNumber, int cardIndex) {
-
         controller.discard((GolfCard) controller.getPlayerHand(playerNumber)[cardIndex]);
     }
 
@@ -28,7 +26,6 @@ public abstract class View {
      * @param cardToDiscard The card that should be discarded
      */
     protected void discardUnheldCard(Card cardToDiscard) {
-
         controller.discard((GolfCard) cardToDiscard);
     }
 
@@ -37,7 +34,6 @@ public abstract class View {
      * @param cardToReplace The Card that should be swapped with the top Card on the discard pile
      */
     protected void drawDiscard(int playerNumber, int cardToReplace) {
-
         controller.drawDiscard(playerNumber, cardToReplace);
     }
 
@@ -45,7 +41,6 @@ public abstract class View {
      * @return a Card from the deck
      */
     protected Card drawCardFromDeck() {
-
         return controller.drawFromDeck();
     }
 
@@ -54,7 +49,6 @@ public abstract class View {
      * @return true if playerNumber has a face-down card, false if not
      */
     protected boolean hasFaceDownCard(int playerNumber) {
-
         for (Card card : controller.getPlayerHand(playerNumber))
             if (card.getCardFace() == CardFace.DOWN)
                 return true;
@@ -66,7 +60,6 @@ public abstract class View {
      * @param numberOfPlayers The number of people who will be playing the game
      */
     protected void setNumberOfPlayers(int numberOfPlayers) {
-
         controller.setNumberOfPlayers(numberOfPlayers);
     }
 
@@ -74,7 +67,6 @@ public abstract class View {
      * @return the top Card on the discard pile
      */
     protected Card viewTopOfDiscardPile() {
-
         return controller.viewTopOfDiscardPile();
     }
 
@@ -82,7 +74,6 @@ public abstract class View {
      * @return The current players index
      */
     protected int getCurrentPlayerNumber() {
-
         return controller.getNumberOfPlayedTurns() % controller.getNumberOfPlayers();
     }
 
@@ -90,7 +81,6 @@ public abstract class View {
      * @return the player's current hand as a Card[]
      */
     protected Card[] getCurrentPlayerHand() {
-
         return controller.getPlayerHand(getCurrentPlayerNumber());
     }
 
@@ -99,7 +89,6 @@ public abstract class View {
      * @return An int[] containing each player's score
      */
     protected int[] getPlayerScores() {
-
         return controller.getPlayerScores();
     }
 
@@ -108,7 +97,6 @@ public abstract class View {
      * @return the total number of holes in the game
      */
     protected int getNumberOfHoles() {
-
         return controller.getNumberOfHoles();
     }
 
@@ -117,15 +105,13 @@ public abstract class View {
      * @return the number of played holes
      */
     protected int getNumberOfPlayedHoles() {
-
         return controller.getNumberOfPlayedHoles();
     }
 
     /** Checks whether there are Cards left in the deck
-     * @return true if there're Cards in the deck and false otherwise
+     * @return true if there are Cards in the deck and false otherwise
      */
     protected boolean cardsRemaining() {
-
         return controller.cardsRemaining();
     }
 
@@ -134,7 +120,6 @@ public abstract class View {
      * @param cardToFlip The Card that should be flipped
      */
     protected void flipCard(int playerNumber, int cardToFlip) {
-
         controller.flipCard(playerNumber, cardToFlip);
     }
 
@@ -146,8 +131,17 @@ public abstract class View {
         controller.setPlayerHands();
     }
 
-    protected void setNumberOfHoles(int numberOfHoles) {
+    /** Checks if any player has all of their cards face up*/
+    protected boolean checkCards() {
+        return controller.checkAllUp();
+    }
 
+    /** Updates player scores at the end of each hole */
+    protected void updateScores() {
+        controller.updatePlayerScores();
+    }
+
+    protected void setNumberOfHoles(int numberOfHoles) {
         controller.setNumberOfHoles(numberOfHoles);
     }
 }

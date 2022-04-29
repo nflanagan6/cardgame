@@ -122,11 +122,11 @@ public class CLIView extends View {
     }
 
     /** Prompts the player to complete their turn and moves on to the next player's turn while there are
-     * Cards remaining in the deck
+     * Cards remaining in the deck and no player has all of their cards face up
      *
      */
     public void nextTurn() {
-        if (cardsRemaining()) {
+        if (cardsRemaining() && !checkCards()) {
             System.out.println("It's player " + (getCurrentPlayerNumber() + 1) + "'s turn!");
             Card[] hand = getCurrentPlayerHand();
             printPlayerHand(hand);
@@ -165,8 +165,9 @@ public class CLIView extends View {
             nextTurn();
         }
         else {
-            System.out.println("There are no more cards remaining");
-            endGame();
+            updateScores();
+            printPlayerScores();
+            nextTurn();
         }
     }
 
