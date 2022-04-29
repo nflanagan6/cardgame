@@ -144,4 +144,11 @@ public abstract class View {
     protected void setNumberOfHoles(int numberOfHoles) {
         controller.setNumberOfHoles(numberOfHoles);
     }
+
+    /**
+     * Updates the next hole
+     */
+    protected void nextHole() {
+        controller.incHole();
+    }
 }
