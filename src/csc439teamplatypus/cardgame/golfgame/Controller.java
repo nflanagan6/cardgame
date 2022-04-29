@@ -18,6 +18,7 @@ public class Controller {
     private final View view;
     private int numberOfPlayedTurns;
     private int numberOfPlayedHoles;
+    private boolean allCardsUp = true;
     Random rand = new Random();
 
     /** Creates a new Controller
@@ -244,6 +245,19 @@ public class Controller {
         return updatedPlayerScores;
     }
 
+    protected void updatePlayerScores() {
+        for (int i = 0; i < numberOfPlayers; i++) {
+            int currentHoleScore = 0;
+            for (int x = 0, y = 3; x <= 2 && y <= 5; x++, y++) {
+                if (!(playerHands[i][x].getNumber() == playerHands[i][y].getNumber())) {
+                    currentHoleScore += playerHands[i][x].getGolfValue();
+                    currentHoleScore += playerHands[i][y].getGolfValue();
+                }
+            }
+            playerScores[i] += currentHoleScore;
+        }
+    }
+
     /**
      * Accepts the number of players (must be between 2 and 7, inclusively) and instantiates deck, discard,
      * playerHands, numberOfPlayers, and the numberOfPlayedTurns
@@ -255,7 +269,6 @@ public class Controller {
         if (numberOfPlayers < 2 || numberOfPlayers > 7) {
             throw new IllegalArgumentException("The number of players must be between 2 and 7 (inclusively)");
         } else {
-
             this.numberOfPlayers = numberOfPlayers;
             playerHands = new GolfCard[numberOfPlayers][6];
             deck = new ArrayList<>();
@@ -322,6 +335,28 @@ public class Controller {
         discard.add(drawFromDeck());
     }
 
+
+    /** Checks if a player has all cards up. Returns false if they do not, and true if they do.*/
+    protected boolean checkAllUp() {
+        int allCardsUp = 0;
+        for (int i = 0; i < numberOfPlayers; i++) {
+            for (int j = 0; j < 6; j++) {
+                if(getPlayerHand(i)[j].getCardFace() == CardFace.DOWN) {
+                    continue;
+                }
+                else {
+                    allCardsUp++;
+                }
+            }
+            if (allCardsUp == 6) {
+                return true;
+            }
+            else {
+                allCardsUp = 0;
+            }
+        }
+        return false;
+    }
 
     /**
      * Only intended for testing
