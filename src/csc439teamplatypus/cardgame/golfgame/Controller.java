@@ -47,6 +47,8 @@ public class Controller {
      * @author Nathan Flanagan
      */
     private void createCardDeck(ArrayList<GolfCard> deck, int numberOfDecks) {
+        deck.clear();
+        discard.clear();
         for (int i = numberOfDecks; i > 0; i--) {
 
             deck.add(new GolfCard(CardSuit.CLUB, CardNumber.TWO, CardFace.DOWN));
@@ -245,6 +247,10 @@ public class Controller {
         return updatedPlayerScores;
     }
 
+    protected int[] getEndOfHoleScores() {
+        return playerScores;
+    }
+
     protected void updatePlayerScores() {
         for (int i = 0; i < numberOfPlayers; i++) {
             int currentHoleScore = 0;
@@ -373,6 +379,13 @@ public class Controller {
      */
     protected void incHole() {
         numberOfPlayedHoles++;
+        if (numberOfPlayers > 4) {
+            createCardDeck(deck, 2);
+        }
+        else {
+            createCardDeck(deck, 1);
+        }
+        setPlayerHands();
         numberOfPlayedTurns = 0;
     }
 }

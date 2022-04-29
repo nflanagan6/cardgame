@@ -151,4 +151,8 @@ public abstract class View {
     protected void nextHole() {
         controller.incHole();
     }
+
+    protected int[] endOfHoleScores() {
+        return controller.getEndOfHoleScores();
+    }
 }

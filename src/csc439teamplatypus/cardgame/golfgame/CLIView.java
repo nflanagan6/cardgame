@@ -167,15 +167,14 @@ public class CLIView extends View {
         }
         else if (getNumberOfPlayedHoles() == getNumberOfHoles() - 1) {
             System.out.println("The final scores of the game are: ");
+            updateScores();
             printPlayerScores();
             endGame();
         }
         else {
-            printPlayerScores();
             updateScores();
+            printPlayerScores();
             nextHole();
-            setNumOfPlayers(numOfPlayers);
-            setPlayerHand();
             nextTurn();
         }
     }
@@ -238,11 +237,17 @@ public class CLIView extends View {
      */
     protected void printPlayerScores() {
         int[] playerRank = new int[numOfPlayers];
+        int[] currentScores;
         for (int i = 0; i < playerRank.length; i++) {
             playerRank[i] = i + 1;
         }
 
-        int[] currentScores = getPlayerScores();
+        if (!(checkCards() && !cardsRemaining())) {
+            currentScores = getPlayerScores();
+        }
+        else {
+            currentScores = endOfHoleScores();
+        }
 
         for (int i = 0; i < currentScores.length - 1; i++)
             for (int j = i + i; j < currentScores.length; j++)
