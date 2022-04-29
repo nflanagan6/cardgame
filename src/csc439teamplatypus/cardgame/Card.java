@@ -55,12 +55,7 @@ public class Card {
      * @return Whether the suit is red
      */
     public boolean isRed(CardSuit suit) {
-        switch(suit) {
-            case DIAMOND: case HEART:
-                return true;
-            default:
-                return false;
-        }
+        return suit==CardSuit.HEART||suit==CardSuit.DIAMOND;
     }
 
     /** Returns whether a Card's suit is black
@@ -68,11 +63,6 @@ public class Card {
      * @return Whether the suit is black
      */
     public boolean isBlack(CardSuit suit) {
-        switch(suit) {
-            case CLUB: case SPADE:
-                return true;
-            default:
-                return false;
-        }
+        return suit==CardSuit.CLUB||suit==CardSuit.SPADE;
     }
 }
