@@ -211,7 +211,7 @@ public class Controller {
      * @return The player's hand
      * @author Nathan Flanagan
      */
-    protected Card[] getPlayerHand(int playerNumber) {
+    protected GolfCard[] getPlayerHand(int playerNumber) {
         if (playerNumber >= playerHands.length || playerNumber < 0) {
             throw new IndexOutOfBoundsException();
         }
