@@ -48,6 +48,7 @@ public class CLIView extends View {
         while (!inputCompleted) {
 
             System.out.println("Which card would you like to flip over? You can only flip over a face-down card.");
+            printPlayerHand(getCurrentPlayerHand());
             System.out.print("Enter one of: ");
             for (int i = 0; i < 6; i++)
                 if (getCurrentPlayerHand()[i].getCardFace() == CardFace.DOWN)
@@ -164,12 +165,16 @@ public class CLIView extends View {
             System.out.println("\n");
             nextTurn();
         }
+        else if (getNumberOfPlayedHoles() == getNumberOfHoles() - 1) {
+            System.out.println("The final scores of the game are: ");
+            updateScores();
+            printPlayerScores();
+            endGame();
+        }
         else {
             updateScores();
             printPlayerScores();
             nextHole();
-            setNumOfPlayers(numOfPlayers);
-            setPlayerHand();
             nextTurn();
         }
     }
@@ -231,11 +236,18 @@ public class CLIView extends View {
      *
      */
     protected void printPlayerScores() {
+        int[] playerRank = new int[numOfPlayers];
+        int[] currentScores;
+        for (int i = 0; i < playerRank.length; i++) {
+            playerRank[i] = i + 1;
+        }
 
-        // Stores the index of each players' score so the ranking can be ordered while retaining whose score is whose
-        int[] playerRank = {0, 1, 2, 3, 4, 5};
-
-        int[] currentScores = getPlayerScores();
+        if (!(checkCards() && !cardsRemaining())) {
+            currentScores = getPlayerScores();
+        }
+        else {
+            currentScores = endOfHoleScores();
+        }
 
         for (int i = 0; i < currentScores.length - 1; i++)
             for (int j = i + i; j < currentScores.length; j++)
@@ -256,6 +268,14 @@ public class CLIView extends View {
         for (int i = 0; i < currentScores.length; i++)
             System.out.println("Player " + playerRank[i] + ": " + currentScores[playerRank[i]]);
         System.out.println();
+
+        if (getNumberOfPlayedHoles() == getNumberOfHoles() - 1 && (checkCards() || !cardsRemaining())) {
+            for (int i = 0; i < currentScores.length; i++) {
+                if (playerRank[i] == 1) {
+                    System.out.println("The winner of the game is: " + playerRank[i]);
+                }
+            }
+        }
     }
 
     /** Asks player to enter the number of people playing golf and starts the game
