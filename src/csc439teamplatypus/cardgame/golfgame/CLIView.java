@@ -3,6 +3,7 @@ package csc439teamplatypus.cardgame.golfgame;
 import csc439teamplatypus.cardgame.Card;
 import csc439teamplatypus.cardgame.CardFace;
 
+import javax.sound.midi.SysexMessage;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
@@ -21,8 +22,8 @@ public class CLIView extends View {
         boolean inputCompleted = false;
 
         while (!inputCompleted) {
-
-            System.out.print("Enter the index of the card you would like to discard: ");
+            printPlayerHand(getCurrentPlayerHand());
+            System.out.print("\nEnter the index of the card you would like to discard: ");
             int cardToDiscard = input.nextInt();
 
             if (cardToDiscard < 0 || cardToDiscard > 5)
@@ -46,12 +47,14 @@ public class CLIView extends View {
         boolean inputCompleted = false;
 
         while (!inputCompleted) {
-
             System.out.println("Which card would you like to flip over? You can only flip over a face-down card.");
-            System.out.print("Enter one of: ");
-            for (int i = 0; i < 6; i++)
-                if (getCurrentPlayerHand()[i].getCardFace() == CardFace.DOWN)
+            printPlayerHand(getCurrentPlayerHand());
+            System.out.print("\nEnter one of: ");
+            for (int i = 0; i < 6; i++) {
+                if (getCurrentPlayerHand()[i].getCardFace() == CardFace.DOWN) {
                     System.out.print(i + " ");
+                }
+            }
             System.out.print(": ");
             int cardToFlip = input.nextInt();
 
@@ -80,7 +83,8 @@ public class CLIView extends View {
         boolean deckDrawInputCompleted = false;
 
         while (!deckDrawInputCompleted) {
-            System.out.println("You drew the " + drawnCard.getNumber() + " of " + drawnCard.getSuit() + "s");
+            printPlayerHand(getCurrentPlayerHand());
+            System.out.println("\nYou drew the " + drawnCard.getNumber() + " of " + drawnCard.getSuit() + "s");
             System.out.print("Would you like to keep it? Enter \"Yes\" or \"No\": ");
             String decision_keepOrDiscard = input.next();
 
@@ -95,7 +99,7 @@ public class CLIView extends View {
                     deckDrawInputCompleted = true;
                 }
                 case "No" -> {
-                    System.out.println("Card discarded");
+                    System.out.println("\nCard discarded");
                     chooseCardToFlip();
                     discardUnheldCard(drawnCard);
                     deckDrawInputCompleted = true;
@@ -107,7 +111,12 @@ public class CLIView extends View {
         }
     }
 
-    //Overrides drawDiscard to be able to print off what the player's hand will be before ending their turn
+
+    /**
+     * Player draws form the discard pile and updates their hand.
+     * @param playerNumber  The player whose Card should be discarded
+     * @param cardToReplace The Card that should be swapped with the top Card on the discard pile
+     */
     @Override
     protected void drawDiscard(int playerNumber, int cardToReplace) {
 
@@ -132,17 +141,13 @@ public class CLIView extends View {
             printPlayerHand(hand);
             printTopOfDiscardPile();
 
-            System.out.print("Enter \"Scores\" to view the current scoreboard. Enter anything else to continue: ");
-            if (input.next().equals("Scores"))
-                printPlayerScores();
-
             boolean inputCompleted = false;
 
             while (!inputCompleted) {
 
-                System.out.println("Would you like to draw a new card from the deck or take from the top " +
+                System.out.println("\nWould you like to draw a new card from the deck or take from the top " +
                         "of the discard pile?");
-                System.out.print("Enter \"Deck\" or \"Discard\" (Type \"QUIT\" to exit the game): ");
+                System.out.print("Enter \"Deck\" or \"Discard\" (Type \"QUIT\" to exit the game, or \"Scores\" to view the scores): ");
                 String decision_chooseDrawSource = input.next();
                 switch (decision_chooseDrawSource) {
                     case "QUIT" -> {
@@ -153,8 +158,12 @@ public class CLIView extends View {
                         inputCompleted = true;
                     }
                     case "Discard" -> {
+                        printTopOfDiscardPile();
                         drawDiscard(getCurrentPlayerNumber(), promptForDiscard());
                         inputCompleted = true;
+                    }
+                    case "Scores" -> {
+                        printPlayerScores();
                     }
                     default -> {
                         System.out.println("Could not parse input " + decision_chooseDrawSource);
@@ -164,12 +173,18 @@ public class CLIView extends View {
             System.out.println("\n");
             nextTurn();
         }
+        else if (getNumberOfPlayedHoles() == getNumberOfHoles() - 1) {
+            System.out.println("The final scores of the game are: ");
+            updateScores();
+            printEndOfHole();
+            endGame();
+        }
         else {
             updateScores();
-            printPlayerScores();
+            System.out.print("Hole " + (getNumberOfPlayedHoles() + 1) + " is over!\n\n");
+            printEndOfHole();
             nextHole();
-            setNumOfPlayers(numOfPlayers);
-            setPlayerHand();
+            System.out.println("It is now Hole " + (getNumberOfPlayedHoles() + 1) + " of " + getNumberOfHoles() + "\n");
             nextTurn();
         }
     }
@@ -207,6 +222,7 @@ public class CLIView extends View {
      * @param hand Card[] of Cards to display
      */
     protected void printPlayerHand(Card[] hand) {
+        System.out.println();
         for (int i = 0; i < hand.length; i++) {
             if (i == 3) {
                 System.out.print("\n");
@@ -225,20 +241,22 @@ public class CLIView extends View {
                 }
             }
         }
+        System.out.println();
     }
 
     /** Prints the current players' scores in ascending order
      *
      */
     protected void printPlayerScores() {
+        int[] playerRank = new int[numOfPlayers];
+        int[] currentScores;
+        for (int i = 0; i < playerRank.length; i++) {
+            playerRank[i] = i + 1;
+        }
+        currentScores = getPlayerScores();
 
-        // Stores the index of each players' score so the ranking can be ordered while retaining whose score is whose
-        int[] playerRank = {0, 1, 2, 3, 4, 5};
-
-        int[] currentScores = getPlayerScores();
-
-        for (int i = 0; i < currentScores.length - 1; i++)
-            for (int j = i + i; j < currentScores.length; j++)
+        for (int i = 0; i < currentScores.length - 1; i++) {
+            for (int j = i + 1; j < currentScores.length; j++) {
                 if (currentScores[i] > currentScores[j]) {
 
                     int temp = currentScores[j];
@@ -249,13 +267,60 @@ public class CLIView extends View {
                     playerRank[j] = playerRank[i];
                     playerRank[i] = temp;
                 }
+            }
+        }
+
+        System.out.println("\nScoreboard: Hole " + (getNumberOfPlayedHoles() + 1)
+                + " of " + getNumberOfHoles());
+
+        for (int i = 0; i < currentScores.length; i++) {
+            System.out.println("Player " + playerRank[i] + ": " + currentScores[i]);
+        }
+    }
+
+    /**
+     * Called when the end of hole has been reached, uses currentScores and playerRank to update what each player's score
+     * and rank are.
+     */
+    public void printEndOfHole() {
+        int[] playerRank = new int[numOfPlayers];
+        int[] currentScores;
+        for (int i = 0; i < playerRank.length; i++) {
+            playerRank[i] = i + 1;
+        }
+
+        currentScores = endOfHoleScores();
+
+        for (int i = 0; i < currentScores.length - 1; i++) {
+            for (int j = i + 1; j < currentScores.length; j++) {
+                if (currentScores[i] > currentScores[j]) {
+
+                    int temp = currentScores[j];
+                    currentScores[j] = currentScores[i];
+                    currentScores[i] = temp;
+
+                    temp = playerRank[j];
+                    playerRank[j] = playerRank[i];
+                    playerRank[i] = temp;
+                }
+            }
+        }
 
         System.out.println("Scoreboard: Hole " + (getNumberOfPlayedHoles() + 1)
                 + " of " + getNumberOfHoles());
 
-        for (int i = 0; i < currentScores.length; i++)
-            System.out.println("Player " + playerRank[i] + ": " + currentScores[playerRank[i]]);
+        for (int i = 0; i < currentScores.length; i++) {
+            System.out.println("Player " + playerRank[i] + ": " + currentScores[i]);
+        }
         System.out.println();
+
+        if (getNumberOfPlayedHoles() == getNumberOfHoles() - 1 && (checkCards() || !cardsRemaining())) {
+            for (int i = 0; i < currentScores.length; i++) {
+                if (playerRank[i] == 1) {
+                    System.out.println("The winner of the game is: Player " + playerRank[i]);
+                }
+            }
+        }
     }
 
     /** Asks player to enter the number of people playing golf and starts the game
@@ -267,8 +332,8 @@ public class CLIView extends View {
         System.out.print("Please enter a number between 2 and 7: ");
         numOfPlayers = Integer.parseInt(input.next());
         setNumOfPlayers(numOfPlayers);
-        System.out.println("\t\tHow many holes would you like to play?");
-        System.out.print("Please enter 9 or 18: ");
+        System.out.println("How many holes would you like to play?");
+        System.out.print("\tPlease enter 9 or 18: ");
         int numOfHoles = Integer.parseInt(input.next());
         setNumOfHoles(numOfHoles);
         nextTurn();
