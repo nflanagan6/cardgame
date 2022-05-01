@@ -3,6 +3,7 @@ package csc439teamplatypus.cardgame.golfgame;
 import csc439teamplatypus.cardgame.Card;
 import csc439teamplatypus.cardgame.CardFace;
 
+import javax.sound.midi.SysexMessage;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
@@ -175,8 +176,10 @@ public class CLIView extends View {
         }
         else {
             updateScores();
+            System.out.print("Hole " + (getNumberOfPlayedHoles() + 1) + " is over!\n\n");
             printEndOfHole();
             nextHole();
+            System.out.println("It is now Hole " + (getNumberOfPlayedHoles() + 1) + " of " + getNumberOfHoles() + "\n");
             nextTurn();
         }
     }
