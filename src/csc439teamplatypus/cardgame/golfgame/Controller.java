@@ -47,8 +47,9 @@ public class Controller {
      * @author Nathan Flanagan
      */
     private void createCardDeck(ArrayList<GolfCard> deck, int numberOfDecks) {
-        deck.clear();
-        discard.clear();
+        if (!(deck.size() == 0)) {
+            deck.clear();
+        }
         for (int i = numberOfDecks; i > 0; i--) {
 
             deck.add(new GolfCard(CardSuit.CLUB, CardNumber.TWO, CardFace.DOWN));
@@ -213,7 +214,7 @@ public class Controller {
      * @return The player's hand
      * @author Nathan Flanagan
      */
-    protected Card[] getPlayerHand(int playerNumber) {
+    protected GolfCard[] getPlayerHand(int playerNumber) {
         if (playerNumber >= playerHands.length || playerNumber < 0) {
             throw new IndexOutOfBoundsException();
         }
@@ -231,17 +232,16 @@ public class Controller {
         System.arraycopy(playerScores, 0, updatedPlayerScores, 0, playerScores.length);
 
         for (int i = 0; i < numberOfPlayers; i++) {
-            int curretHoleScore = 0;
+            int currentHoleScore = 0;
             for (int x = 0, y = 3; x <= 2 && y <= 5; x++, y++) {
                 if (!(playerHands[i][x].getCardFace() == CardFace.UP && playerHands[i][y].getCardFace() == CardFace.UP
                         && playerHands[i][x].getNumber() == playerHands[i][y].getNumber())) {
-                    curretHoleScore += playerHands[i][x].getCardFace() == CardFace.UP ? playerHands[i][x].getGolfValue() : 0;
-                    curretHoleScore += playerHands
-                            [i][y].getCardFace() == CardFace.UP ? playerHands[i][y].getGolfValue() : 0;
+                    currentHoleScore += playerHands[i][x].getCardFace() == CardFace.UP ? playerHands[i][x].getGolfValue() : 0;
+                    currentHoleScore += playerHands[i][y].getCardFace() == CardFace.UP ? playerHands[i][y].getGolfValue() : 0;
                 }
             }
 
-            updatedPlayerScores[i] += curretHoleScore;
+            updatedPlayerScores[i] += currentHoleScore;
         }
 
         return updatedPlayerScores;
@@ -253,14 +253,21 @@ public class Controller {
 
     protected void updatePlayerScores() {
         for (int i = 0; i < numberOfPlayers; i++) {
+            for (int j = 0; j < 6; j++) {
+                playerHands[i][j].setCardFace(CardFace.UP);
+            }
+        }
+        for (int i = 0; i < numberOfPlayers; i++) {
             int currentHoleScore = 0;
             for (int x = 0, y = 3; x <= 2 && y <= 5; x++, y++) {
-                if (!(playerHands[i][x].getNumber() == playerHands[i][y].getNumber())) {
-                    currentHoleScore += playerHands[i][x].getGolfValue();
-                    currentHoleScore += playerHands[i][y].getGolfValue();
+                if (!(playerHands[i][x].getCardFace() == CardFace.UP && playerHands[i][y].getCardFace() == CardFace.UP
+                        && playerHands[i][x].getNumber() == playerHands[i][y].getNumber())) {
+                    currentHoleScore += playerHands[i][x].getCardFace() == CardFace.UP ? playerHands[i][x].getGolfValue() : 0;
+                    currentHoleScore += playerHands[i][y].getCardFace() == CardFace.UP ? playerHands[i][y].getGolfValue() : 0;
                 }
             }
-            playerScores[i] += currentHoleScore;
+
+            playerScores[i] = playerScores[i] + currentHoleScore;
         }
     }
 
@@ -285,11 +292,14 @@ public class Controller {
             discard = new ArrayList<>();
             numberOfPlayedTurns = 0;
             playerScores = new int[numberOfPlayers];
+            for (int i = 0; i < numberOfPlayers; i++) {
+                playerScores[i] = 0;
+            }
         }
     }
 
     protected void setNumberOfHoles(int numberOfHoles) {
-        if (numberOfHoles != 9 || numberOfHoles != 18) {
+        if (numberOfHoles != 9 && numberOfHoles != 18) {
             throw new IllegalArgumentException("The number of holes entered must be either 9 or 18");
         }
         else {
@@ -385,6 +395,7 @@ public class Controller {
         else {
             createCardDeck(deck, 1);
         }
+        discard.clear();
         setPlayerHands();
         numberOfPlayedTurns = 0;
     }
