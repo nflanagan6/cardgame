@@ -154,4 +154,16 @@ public class TestController {
             Truth.assertThat(testingController.getPlayerScores()[i]).isEqualTo(playerScore);
         }
     }
+
+    @Test
+    void checkAllUp() {
+        testingController.setNumberOfPlayers(2);
+        testingController.setPlayerHands();
+        Truth.assertThat(testingController.checkAllUp()).isFalse();
+        GolfCard[] testingArray = testingController.getPlayerHand(1);
+        for(int i = 0; i < 6; i++) {
+            testingArray[i].setCardFace(CardFace.UP);
+        }
+        Truth.assertThat(testingController.checkAllUp()).isTrue();
+    }
 }
