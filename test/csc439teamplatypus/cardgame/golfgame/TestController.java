@@ -144,7 +144,7 @@ public class TestController {
             for (int j = 0, k = 3; j < 3 && k < 6; j++, k++) {
 
                 if (!(hand[j].getCardFace() == CardFace.UP && hand[k].getCardFace() == CardFace.UP
-                && hand[j].getNumber() == hand[k].getNumber())) {
+                        && hand[j].getNumber() == hand[k].getNumber())) {
                     playerScore += hand[j].getCardFace() == CardFace.UP ? hand[j].getGolfValue() : 0;
                     playerScore += hand[k].getCardFace() == CardFace.UP ? hand[k].getGolfValue() : 0;
                 }
@@ -166,3 +166,4 @@ public class TestController {
         Truth.assertThat(testingController.checkAllUp()).isTrue();
     }
 }
+

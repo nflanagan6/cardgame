@@ -152,6 +152,10 @@ public abstract class View {
         controller.incHole();
     }
 
+    /**
+     * Uses controllers logic to get the end of hole score.
+     * @return endHoleScore
+     */
     protected int[] endOfHoleScores() {
         return controller.getEndOfHoleScores();
     }

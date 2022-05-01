@@ -247,10 +247,17 @@ public class Controller {
         return updatedPlayerScores;
     }
 
+    /**
+     * Getter method for just returning player scores.
+     * @return playerScores scores at given time
+     */
     protected int[] getEndOfHoleScores() {
         return playerScores;
     }
 
+    /**
+     * Updates player scores by running through for loops and assigning score based on golf card game values.
+     */
     protected void updatePlayerScores() {
         for (int i = 0; i < numberOfPlayers; i++) {
             for (int j = 0; j < 6; j++) {
@@ -298,6 +305,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Simple setter method for number of holes, handles case where it's not 9 or 18.
+     * @param numberOfHoles 9 or 18
+     */
     protected void setNumberOfHoles(int numberOfHoles) {
         if (numberOfHoles != 9 && numberOfHoles != 18) {
             throw new IllegalArgumentException("The number of holes entered must be either 9 or 18");

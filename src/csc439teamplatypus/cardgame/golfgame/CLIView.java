@@ -273,6 +273,9 @@ public class CLIView extends View {
         }
     }
 
+    /**
+     * Prints when the turn is over
+     */
     public void printEndOfHole() {
         int[] playerRank = new int[numOfPlayers];
         int[] currentScores;
