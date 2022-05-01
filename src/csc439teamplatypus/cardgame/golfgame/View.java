@@ -153,8 +153,8 @@ public abstract class View {
     }
 
     /**
-     * Uses controller to get the end of hole scores
-     * @return the score at end of hole based on controller
+     * Uses controllers logic to get the end of hole score.
+     * @return endHoleScore
      */
     protected int[] endOfHoleScores() {
         return controller.getEndOfHoleScores();

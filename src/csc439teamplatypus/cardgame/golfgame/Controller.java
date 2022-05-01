@@ -248,15 +248,15 @@ public class Controller {
     }
 
     /**
-     * Just gives the score after a hole is over
-     * @return playerScores These are the holes at the end of the hole
+     * Getter method for just returning player scores.
+     * @return playerScores scores at given time
      */
     protected int[] getEndOfHoleScores() {
         return playerScores;
     }
 
     /**
-     * Updates the player scores based on if the card is up, and what that value means based on golf.
+     * Updates player scores by running through for loops and assigning score based on golf card game values.
      */
     protected void updatePlayerScores() {
         for (int i = 0; i < numberOfPlayers; i++) {
@@ -306,8 +306,8 @@ public class Controller {
     }
 
     /**
-     * Sets number of holes based on number of players
-     * @param numberOfHoles must be 9 or 18
+     * Simple setter method for number of holes, handles case where it's not 9 or 18.
+     * @param numberOfHoles 9 or 18
      */
     protected void setNumberOfHoles(int numberOfHoles) {
         if (numberOfHoles != 9 && numberOfHoles != 18) {

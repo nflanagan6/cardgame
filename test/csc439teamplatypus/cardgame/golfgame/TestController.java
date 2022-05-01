@@ -5,7 +5,6 @@ import csc439teamplatypus.cardgame.CardFace;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -145,7 +144,7 @@ public class TestController {
             for (int j = 0, k = 3; j < 3 && k < 6; j++, k++) {
 
                 if (!(hand[j].getCardFace() == CardFace.UP && hand[k].getCardFace() == CardFace.UP
-                && hand[j].getNumber() == hand[k].getNumber())) {
+                        && hand[j].getNumber() == hand[k].getNumber())) {
                     playerScore += hand[j].getCardFace() == CardFace.UP ? hand[j].getGolfValue() : 0;
                     playerScore += hand[k].getCardFace() == CardFace.UP ? hand[k].getGolfValue() : 0;
                 }
@@ -153,5 +152,17 @@ public class TestController {
 
             Truth.assertThat(testingController.getPlayerScores()[i]).isEqualTo(playerScore);
         }
+    }
+
+    @Test
+    void checkAllUp() {
+        testingController.setNumberOfPlayers(2);
+        testingController.setPlayerHands();
+        Truth.assertThat(testingController.checkAllUp()).isFalse();
+        GolfCard[] testingArray = testingController.getPlayerHand(1);
+        for(int i = 0; i < 6; i++) {
+            testingArray[i].setCardFace(CardFace.UP);
+        }
+        Truth.assertThat(testingController.checkAllUp()).isTrue();
     }
 }

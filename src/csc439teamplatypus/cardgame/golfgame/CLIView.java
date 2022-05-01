@@ -111,12 +111,7 @@ public class CLIView extends View {
         }
     }
 
-
-    /**
-     * Player draws form the discard pile and updates their hand.
-     * @param playerNumber  The player whose Card should be discarded
-     * @param cardToReplace The Card that should be swapped with the top Card on the discard pile
-     */
+    //Overrides drawDiscard to be able to print off what the player's hand will be before ending their turn
     @Override
     protected void drawDiscard(int playerNumber, int cardToReplace) {
 
@@ -279,8 +274,7 @@ public class CLIView extends View {
     }
 
     /**
-     * Called when the end of hole has been reached, uses currentScores and playerRank to update what each player's score
-     * and rank are.
+     * Prints when the turn is over
      */
     public void printEndOfHole() {
         int[] playerRank = new int[numOfPlayers];
